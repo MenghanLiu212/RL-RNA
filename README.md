@@ -3,6 +3,10 @@
 This algorithm is using a multi-branch reinforcement learning algorithm to predict secondary structure of peudoknot-free RNA sequence.
 RNAfold is used as the roll-out heuristic algorithm.
 ENTRNA (with and without MFE) is used as expert.
+
+Environment requirement:
+ENTRNA: https://github.com/sucongzhe/ENTRNA
+
 We call ENTRNA expert with MFE MFE_ENTRNA and ENTRNA expert without MFE NFE_ENTRNA.
 
 There are three versions of this algorithom included in this repository: MFE only, NFE only and MFENFE_2X2.
