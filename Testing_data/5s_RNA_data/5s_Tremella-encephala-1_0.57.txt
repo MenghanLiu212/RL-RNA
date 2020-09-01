@@ -1,0 +1,5 @@
+5s_Tremella-encephala-1
+AUUUUCGGCCACAGGAUUGUGAAAACGCUGCAUCCCGUCCGAUCUGCGCAGCCAAGCACAACACCGCUCAGUCAGUAGGAAGGUGGGGGACCAUUUCCGAAUCCUGGGUGCCGAAGUU
+Actual: (.(((((((....((.(((((.....((((((............))))..))....)))))..)).(((((......(((((.(((....)))))))).....))))).))))))).)
+RNAfold: ..((((((((.(((((((..((((....((..(((((.((..(((((...((..(((........)))..))..)))))..)))))))...))))))..))))))).).)))))))..
+Ours: 
