@@ -7,6 +7,8 @@ ENTRNA (with and without MFE) is used as expert.
 Environment requirement:
 ENTRNA: https://github.com/sucongzhe/ENTRNA
 
+We did some modifications on the original version of ENTRNA so the new ver of ENTRNA is already inside the folder util. You don't need to download ENTRNA itself. from the link above but you need the environments for ENTRNA from the link above.
+
 We call ENTRNA expert with MFE MFE_ENTRNA and ENTRNA expert without MFE NFE_ENTRNA.
 
 There are three versions of this algorithom included in this repository: MFE only, NFE only and MFENFE_2X2.
