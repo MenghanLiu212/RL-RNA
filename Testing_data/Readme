@@ -1,3 +1,5 @@
 This is the testing_data folder.
 Please delete all the readme files before running the databases.
-Also for tRNA and small_testcase_files, please unzip before use.
+Also for rfam, tRNA and small_testcase_files, please unzip before use.
+
+rfam folder is the same as 5s+tRNA+tmRNA+srp+RNaseP.
