@@ -46,10 +46,6 @@ A csv file containing the following columns:
 (12)'fe_per', calculation details referred to Congzhe's paper
 (13)'Running_time(sec)', running time for this RNA in seconds
 
-The ExpertRNA implementation linked produces as output a csv with the following columns:
-
-column number	0	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25
-Data	Number	Name	Sequence	Actual Structure	RNAfold Structure	ExpertRNA Structure	RNAfold Hamming Distance	ExpertRNA Hamming Distance	ent_3	GC Perentage	Ensemble Diversity	Expected Accuracy	fe_per	Running Time(sec)	Actual Foldability MFE	Actual Foldability NFE	Actual abs Foldability difference	RNAfold Foldability MFE	RNAfold Foldability NFE	RNAfold abs Foldability difference	ExpertRNA Foldability MFE	ExpertRNA Foldability NFE	ExpertRNA abs Foldability 
 
 ****************************
 For part 2:
