@@ -207,7 +207,7 @@ for file_name in os.listdir(path_of_ori_data):
 
                 features_ori = entrna_main_return_all_features_ori(Ori_Seq, Our_alg_str, scaler_ori, clf_ori)
 
-                list_for_the_case=[The_name, Ori_Seq, Actual_str, RNAfold_str, Our_alg_str, Actual_foladability_MFE, RNAfold_foladability_MFE, Our_foladability_MFE, RNAfold_distance, Our_distance, features_ori[0], features_ori[1], features_ori[2], features_ori[3], features_ori[4], alg_run_time]
+                list_for_the_case=[The_name, Ori_Seq, Actual_str, RNAfold_str, Our_alg_str, RNAfold_distance, Our_distance, features_ori[0], features_ori[1], features_ori[2], features_ori[3], features_ori[4], alg_run_time]
             else:
                 list_for_the_case='NONE'
                 
