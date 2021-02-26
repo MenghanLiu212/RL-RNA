@@ -1,0 +1,10 @@
+# SPOT-RNA vs ExpertRNA test
+
+This directory contains all the information required to run SPOT-RNA and process its output into the format used by the rest of this package to compare with ExpertRNA.
+
+Requirements:
+* The standalone implementation of [knotted2nested.py](https://www.ibi.vu.nl/programs/k2nwww/) for removing pseudoknots.
+
+The jupyter notebook in this directory takes care of all data formatting.  First, it removes all overlaps with the SPOT-RNA training set from the test set, then removes pseudoknots using knotted2nested.
+
+The outputs from SPOT-RNA for the matthews and rfam dataset can be found in the two outputs_X directories.  The jupyter notebook found here then converts them to the csv files found here.
