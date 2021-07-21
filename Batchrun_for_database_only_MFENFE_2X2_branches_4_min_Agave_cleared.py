@@ -161,7 +161,7 @@ def FreeEnergyCalculation(seq, str):
 
 
 #**********************************
-path_of_ori_data = '/home/menghan/Dropbox (ASU)/RNA/ENTRNA-master_new_MH/ENTRNA-master/Testing_data/temp'
+path_of_ori_data = './Testing_data/temp'
 #path_of_ori_data = "./Testing_data/small_testcase_files"
 
 start_time = time.time()

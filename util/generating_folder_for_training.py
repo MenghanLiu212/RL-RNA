@@ -14,7 +14,7 @@ import os
 import csv
 import json
 
-path_of_ori_data = '/home/menghan/Dropbox (ASU)/RNA/ENTRNA-master_new_MH/ENTRNA-master/util/Neg_label'
+path_of_ori_data = './util/Neg_label'
 
 def Put_something_into_csv(something):
     #python2 can use file instaed of open
@@ -67,7 +67,7 @@ for file_item in os.listdir(path_of_ori_data):
                     print('Output')
                     df = pd.concat(dfList)
                     df.reset_index(drop=True)
-                    csv_file_name = "/home/menghan/Dropbox (ASU)/RNA/ENTRNA-master_new_MH/ENTRNA-master/util/Neg_label_results/{}.csv".format(file_name)
+                    csv_file_name = "./util/Neg_label_results/{}.csv".format(file_name)
                     df.to_csv(csv_file_name)
 
 

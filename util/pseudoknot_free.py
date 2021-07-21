@@ -11,7 +11,7 @@ from sklearn.model_selection import KFold
 import itertools
 from sklearn.metrics import accuracy_score
 from scipy.spatial import distance
-import extract_features
+from . import extract_features
 from sklearn.preprocessing import Normalizer
 
 """
@@ -24,7 +24,7 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
     result_test_accuracy_list = []
     feature_set = ['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per']
 
-    mat_all = df_v1[feature_set].as_matrix()
+    mat_all = df_v1[feature_set].to_numpy()
 
     train = list(range(len(file_name_list)))
     mat_train_real = mat_all[train]
@@ -33,7 +33,7 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
     for ii in range(len(file_name_train_list)):
         x_true = mat_train_real[ii]
         df_temp = pd.read_csv(folder_simulation_result+file_name_train_list[ii]+'.csv', header = 0)
-        mat_temp_v1 = df_temp[feature_set].as_matrix()
+        mat_temp_v1 = df_temp[feature_set].to_numpy()
 
         distance_list = []
         for row_i in mat_temp_v1:
@@ -58,12 +58,12 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
     df_real = pd.read_csv(real_RNA_loc, header = 0)
     df_v1 = df_real[df_real['fe_per'] < 2]
     file_name_list = df_v1['file_name'].tolist()
-    df_v1['length'] = df_v1['seq'].apply(lambda x:len(x))
+    df_v1.loc[:,'length'] = df_v1['seq'].apply(lambda x:len(x))
     result_training_accuracy_list = []
     result_test_accuracy_list = []
     feature_set = ['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy']
 
-    mat_all = df_v1[feature_set].as_matrix()
+    mat_all = df_v1[feature_set].to_numpy()
 
     train = list(range(len(file_name_list)))
     mat_train_real = mat_all[train]
@@ -72,7 +72,7 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
     for ii in range(len(file_name_train_list)):
         x_true = mat_train_real[ii]
         df_temp = pd.read_csv(folder_simulation_result+file_name_train_list[ii]+'.csv', header = 0)
-        mat_temp_v1 = df_temp[feature_set].as_matrix()
+        mat_temp_v1 = df_temp[feature_set].to_numpy()
 
         distance_list = []
         for row_i in mat_temp_v1:
@@ -95,7 +95,7 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
 
 """
 def pred_foldability(df_pred,clf, scaler):
-    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per']].as_matrix()
+    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per']].to_numpy()
     for row_i in mat_x:
         if np.isnan(row_i).any() == True:
             return float('nan')
@@ -105,7 +105,7 @@ def pred_foldability(df_pred,clf, scaler):
 """
 
 def pred_foldability(df_pred,clf, scaler):
-    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy']].as_matrix()
+    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy']].to_numpy()
     for row_i in mat_x:
         if np.isnan(row_i).any() == True:
             return float('nan')
@@ -114,7 +114,7 @@ def pred_foldability(df_pred,clf, scaler):
             return clf.predict_proba(scaler.transform([row_i,]))[0][1]
 
 def pred_foldability_return_all_features(df_pred,clf, scaler):
-    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy']].as_matrix()
+    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy']].to_numpy()
     for row_i in mat_x:
         if np.isnan(row_i).any() == True:
             return float('nan')
@@ -150,17 +150,18 @@ def entrna_main_return_all_features(seq,sec_str,scaler, clf,real_RNA_loc = "./ut
     return df_pred.iloc[0]
     #return df_pred
 
+"""
 def entrna_train(real_RNA_loc = "./util/RNASTRAND_pseudoknot_free_feature.csv", folder_simulation_result = "./util/RNASTRAND_extract_feature_pseudoknot_free/"):
     scaler, clf, train_acc = bulid_model(real_RNA_loc,folder_simulation_result)
     return train_acc
-
+"""
 """
 def entrna_train_our_ver(real_RNA_loc = "./util/RNASTRAND_pseudoknot_free_feature.csv", folder_simulation_result = "./util/RNASTRAND_extract_feature_pseudoknot_free/"):
     scaler, clf, train_acc = bulid_model(real_RNA_loc,folder_simulation_result)
     return scaler, clf
 """
 
-def entrna_train_our_ver(real_RNA_loc = "/home/menghan/Dropbox (ASU)/RNA/ENTRNA-master_new_MH/ENTRNA-master/util/RNASTRAND_pseudoknot_free_feature.csv", folder_simulation_result = "/home/menghan/Dropbox (ASU)/RNA/ENTRNA-master_new_MH/ENTRNA-master/util/RNASTRAND_extract_feature_pseudoknot_free/"):
+def entrna_train_our_ver(real_RNA_loc = "./util/RNASTRAND_pseudoknot_free_feature.csv", folder_simulation_result = "./util/RNASTRAND_extract_feature_pseudoknot_free/"):
     scaler, clf, train_acc = bulid_model(real_RNA_loc,folder_simulation_result)
     return scaler, clf
 

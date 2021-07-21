@@ -91,7 +91,6 @@ def FreeEnergyCalculation(seq, str):
 #*************************************************************
 path_of_original_csv = 'type_in_your_preferred_input_path'
 path_of_destination = 'type_in_your_preferred_output_path'
-#path_of_txt = '/home/menghan/Dropbox (ASU)/RNA/Alg_result_analysis/Takcling_ENTRNA_U_to_T_issue'
 csv_filename = 'your_original_results_from_part_1'
 #txt_filename = 'Matthews_U_name_MFE.txt'
 

@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 import RNA
 import math
-import rna_toolkit
-from pseudo_decomposition import Peudo_Decom
+from . import rna_toolkit
+from .pseudo_decomposition import Peudo_Decom
 
 
 def extract_features_pseudoknot_free(seq, sec_str):

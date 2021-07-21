@@ -24,7 +24,7 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
     result_test_accuracy_list = []
     feature_set = ['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per']
 
-    mat_all = df_v1[feature_set].as_matrix()
+    mat_all = df_v1[feature_set].to_numpy()
 
     train = list(range(len(file_name_list)))
     mat_train_real = mat_all[train]
@@ -33,7 +33,7 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
     for ii in range(len(file_name_train_list)):
         x_true = mat_train_real[ii]
         df_temp = pd.read_csv(folder_simulation_result+file_name_train_list[ii]+'.csv', header = 0)
-        mat_temp_v1 = df_temp[feature_set].as_matrix()
+        mat_temp_v1 = df_temp[feature_set].to_numpy()
 
         distance_list = []
         for row_i in mat_temp_v1:
@@ -63,7 +63,7 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
     result_test_accuracy_list = []
     feature_set = ['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy']
 
-    mat_all = df_v1[feature_set].as_matrix()
+    mat_all = df_v1[feature_set].to_numpy()
 
     train = list(range(len(file_name_list)))
     mat_train_real = mat_all[train]
@@ -72,7 +72,7 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
     for ii in range(len(file_name_train_list)):
         x_true = mat_train_real[ii]
         df_temp = pd.read_csv(folder_simulation_result+file_name_train_list[ii]+'.csv', header = 0)
-        mat_temp_v1 = df_temp[feature_set].as_matrix()
+        mat_temp_v1 = df_temp[feature_set].to_numpy()
 
         distance_list = []
         for row_i in mat_temp_v1:
@@ -95,7 +95,7 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
 
 """
 def pred_foldability(df_pred,clf, scaler):
-    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per']].as_matrix()
+    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per']].to_numpy()
     for row_i in mat_x:
         if np.isnan(row_i).any() == True:
             return float('nan')
@@ -105,7 +105,7 @@ def pred_foldability(df_pred,clf, scaler):
 """
 
 def pred_foldability(df_pred,clf, scaler):
-    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy']].as_matrix()
+    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy']].to_numpy()
     for row_i in mat_x:
         if np.isnan(row_i).any() == True:
             return float('nan')
@@ -114,7 +114,7 @@ def pred_foldability(df_pred,clf, scaler):
             return clf.predict_proba(scaler.transform([row_i,]))[0][1]
 
 def pred_foldability_return_all_features(df_pred,clf, scaler):
-    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy']].as_matrix()
+    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy']].to_numpy()
     for row_i in mat_x:
         if np.isnan(row_i).any() == True:
             return float('nan')
