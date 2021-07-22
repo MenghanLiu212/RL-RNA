@@ -28,7 +28,6 @@ def Read_Seq(direct,file_name):
     Ori_Seq = mylist[1]
     return Ori_Seq
 
-
 def Transfer_Ori_Seq_To_Our_Form(Ori_Seq):
     return [i for i in Ori_Seq]
 
@@ -39,7 +38,6 @@ def Read_Actual_str(direct,file_name):
     Actual_str = mylist[2][8:]
     return Actual_str
 
-
 def Read_RNAfold_str(direct,file_name):
     with open(os.path.join(direct, file_name), "r") as f:
         mylist = f.read().splitlines()
@@ -47,14 +45,12 @@ def Read_RNAfold_str(direct,file_name):
     RNAfold_str = mylist[3][9:]
     return RNAfold_str
 
-
 def Read_Our_alg_str(direct,file_name):
     with open(os.path.join(direct, file_name), "r") as f:
         mylist = f.read().splitlines()
     print(mylist[4][6:])
     RNAfold_str = mylist[4][6:]
     return RNAfold_str
-
 
 def Calculate_Distance_str(str_actual,str2):
     str_actual = [str_actual[i] for i in range(0, len(str_actual))]
@@ -66,11 +62,9 @@ def Calculate_Distance_str(str_actual,str2):
     score = score/float(len(str_actual))
     return score
 
-
 def Train_ENTRNA():
     scaler, clf = entrna_train_our_ver()
     return scaler, clf
-
 
 def Train_ENTRNA_ori():
     scaler, clf = entrna_train_our_ver_ori()
@@ -78,13 +72,6 @@ def Train_ENTRNA_ori():
 
 def clear_output(fname):
     open(fname, 'w').close()
-
-def Put_something_into_txt(title, something, fname):
-    with open(fname, "a") as txtfile:
-        txtfile.write(title)
-        txtfile.write("\n") 
-        txtfile.write(something)
-        txtfile.write("\n")
 
 def Put_something_into_csv(something, fname):
     with open(fname, "a") as csvfile:
@@ -107,13 +94,6 @@ def ModifyingWholeChainByRNAfold(s):
             s[i] = '.'
             s[i + 2] = '.'
     return s
-
-
-def FreeEnergyCalculation(seq, str):
-    fc = RNA.fold_compound(seq)
-    FE = fc.eval_structure(str)
-    return FE
-
 
 #**********************************
 if __name__ == '__main__':
@@ -258,10 +238,3 @@ if __name__ == '__main__':
         except Exception as e:
             print("Sorry, there's no corresponding action to fortified solution.")
             continue
-
-
-
-
-
-
-
