@@ -106,18 +106,15 @@ def GetPossibleActions(PartialChain, RNAOriginalChain):
     PositionOfNucleotideChoiceList.append(p)
                
     #About base pair info
-    """
-    In the base pair chain, we define 
-        uncomplete open as 1, complete open as 1.5,
-        uncomplete close as 2, complete close as 2.5.
-            
-    """   
+    #In the base pair chain, we define
+        #uncomplete open as 1, complete open as 1.5,
+        #uncomplete close as 2, complete close as 2.5.
+
     CountOfOpenInPartialChainNotComplete = BPpiece.count(1)
     CountOfCloseInPartialChainNotComplete = BPpiece.count(2)
-    #print('CountOfOpenInPartialChainNotComplete',CountOfOpenInPartialChainNotComplete,'CountOfCloseInPartialChainNotComplete',CountOfCloseInPartialChainNotComplete)
     LeftPositionOfPartialChain = 0
     RightPositionOfPartialChain = p
-    
+
     if CountOfOpenInPartialChainNotComplete!=0 and CountOfCloseInPartialChainNotComplete!= 0:
         #print('Situation1')
         PositionOfFirstOpenInPartialChain = int(BPpiece.index(1))
@@ -140,33 +137,26 @@ def GetPossibleActions(PartialChain, RNAOriginalChain):
         PositionOfLastCloseInPartialChain = 'non'
     else:
         #print('Situation4')
-        PositionOfFirstOpenInPartialChain = 'non'#
+        PositionOfFirstOpenInPartialChain = 'non'
         PositionOfFirstCloseInPartialChain = 'non'
         PositionOfLastOpenInPartialChain = 'non'
-        PositionOfLastCloseInPartialChain = 'non'#
-       #####print('PositionOfFirstOpenInPartialChain',PositionOfFirstOpenInPartialChain,'PositionOfFirstCloseInPartialChain',PositionOfFirstCloseInPartialChain,'PositionOfLastOpenInPartialChain',PositionOfLastOpenInPartialChain,'PositionOfLastCloseInPartialChain',PositionOfLastCloseInPartialChain)
+        PositionOfLastCloseInPartialChain = 'non'
+
     if 1==1: #just for identing
         i =len(NucleotideChoiceList)-1
-        print 'i', i
-        #####print('PositionOfNucleotideChoiceList[i]',PositionOfNucleotideChoiceList[i])
         BasePairChoiceList = []
         if PositionOfNucleotideChoiceList[i] >= RightPositionOfPartialChain: #attach to the right part of partial chain
             ###Interval
             UpperboundForInterval = CheckForInterval(PositionOfNucleotideChoiceList[i], RNAOriginalChain, MaxAcceptantList, PositionOfLastOpenInPartialChain)
             if PositionOfLastOpenInPartialChain != 'non':
-                #pieceWithinInterval = piece[PositionOfLastOpenInPartialChain:UpperboundForInterval]
                 BPpieceWithinInterval = BPpiece[PositionOfLastOpenInPartialChain:UpperboundForInterval]
             else:
-                #pieceWithinInterval = piece[0:UpperboundForInterval]
                 BPpieceWithinInterval = BPpiece[0:UpperboundForInterval]
             CountOfOpenInPartialChainNotCompleteWithinInterval = BPpieceWithinInterval.count(1)
-            #print('UpperboundForInterval',UpperboundForInterval)
             ###Not pairing choice
-            if PositionOfLastOpenInPartialChain!='non': 
-            #and UpperboundForInterval-PositionOfNucleotideChoiceList[i] >= CountOfOpenInPartialChainNotCompleteWithinInterval:#
-		if CheckIfThisOneIsUnpairWillTheRemaingingFeasible(PartialChain, ori_chain, PositionOfLastOpenInPartialChain, PositionOfNucleotideChoiceList[i], BPpiece) == True:
-                    BasePairChoiceList.append(0)
-            elif PositionOfLastOpenInPartialChain=='non':
+            if PositionOfLastOpenInPartialChain!='non' and CheckIfThisOneIsUnpairWillTheRemaingingFeasible(PartialChain, ori_chain, PositionOfLastOpenInPartialChain, PositionOfNucleotideChoiceList[i], BPpiece) == True:
+                BasePairChoiceList.append(0)
+            elif PositionOfLastOpenInPartialChain == 'non':
                 BasePairChoiceList.append(0)
             ###Condtions
             if PositionOfLastOpenInPartialChain == PositionOfLastCloseInPartialChain:
@@ -174,25 +164,25 @@ def GetPossibleActions(PartialChain, RNAOriginalChain):
             else:
                 ConditionAllNon = 0
             if ConditionAllNon == 0:
-                if PositionOfLastOpenInPartialChain!='non' and PositionOfLastCloseInPartialChain!='non':  
+                if PositionOfLastOpenInPartialChain!='non' and PositionOfLastCloseInPartialChain!='non':
                     if PositionOfLastOpenInPartialChain > PositionOfLastCloseInPartialChain:
                         Condition1 = 1
                     else:
                         Condition1=0
                 else:
                     Condition1=0
-                if PositionOfLastOpenInPartialChain!='non' and PositionOfLastCloseInPartialChain=='non': 
+                if PositionOfLastOpenInPartialChain!='non' and PositionOfLastCloseInPartialChain=='non':
                     Condition1_1 = 1
                 else:
                     Condition1_1 = 0
-                if PositionOfLastOpenInPartialChain!='non' and PositionOfLastCloseInPartialChain!='non': 
+                if PositionOfLastOpenInPartialChain!='non' and PositionOfLastCloseInPartialChain!='non':
                     if PositionOfLastOpenInPartialChain <= PositionOfLastCloseInPartialChain:
                         Condition2 = 1
                     else:
                         Condition2=0
                 else:
                     Condition2=0
-                if PositionOfLastOpenInPartialChain=='non' and PositionOfLastCloseInPartialChain!='non': 
+                if PositionOfLastOpenInPartialChain=='non' and PositionOfLastCloseInPartialChain!='non':
                     Condition2_1 = 1
                 else:
                     Condition2_1 = 0
@@ -205,12 +195,6 @@ def GetPossibleActions(PartialChain, RNAOriginalChain):
                         if CheckIfNucleotidesCanBePaired(PositionOfLastOpenInPartialChain, PositionOfNucleotideChoiceList[i],RNAOriginalChain) ==1:
                             BasePairChoiceList.append(2)
                     if len(ori_chain)-PositionOfNucleotideChoiceList[i]-1 > 4+CountOfOpenInPartialChainNotComplete:
-                        #print('flag*****')
-                        #tempList = CalculateNumOfPotentialAcceptant(PositionOfNucleotideChoiceList[i], piece, BPpiece, RNAOriginalChain, MaxAcceptantList, UpperboundForInterval)
-                        #MaxAcceptant = tempList[1]
-                        #PartialChain.MaxAcceptantList[PositionOfNucleotideChoiceList[i]] = MaxAcceptant
-                        #if tempList[0] > 0:
-                        #    BasePairChoiceList.append(1)
                         #use another method for deciding open
                         if CheckIfThisOneIOpenWillTheRemaingingFeasible(PartialChain,ori_chain,PositionOfLastOpenInPartialChain,PositionOfNucleotideChoiceList[i], BPpiece) == True:
                             BasePairChoiceList.append(1)
@@ -219,48 +203,26 @@ def GetPossibleActions(PartialChain, RNAOriginalChain):
                         if CountOfOpenInPartialChainNotComplete > 0:
                             BasePairChoiceList.append(2)
                     if len(ori_chain)-PositionOfNucleotideChoiceList[i] > 4+1:
-                        #if RNAOriginalChain[PositionOfNucleotideChoiceList[i]] != 'C':
                         tempList = CalculateNumOfPotentialAcceptant(PositionOfNucleotideChoiceList[i], piece, BPpiece, RNAOriginalChain, MaxAcceptantList, UpperboundForInterval)
                         MaxAcceptant = tempList[1]
                         PartialChain.MaxAcceptantList[PositionOfNucleotideChoiceList[i]] = MaxAcceptant
                         if tempList[0] > 0:
                             BasePairChoiceList.append(1)
             elif ConditionAllNon == 1:
-                #####print('CountOfOpenInPartialChainNotComplete:',CountOfOpenInPartialChainNotComplete)
-                #####print('CountOfCloseInPartialChainNotComplete',CountOfCloseInPartialChainNotComplete)
                 if PositionOfNucleotideChoiceList[i] > 1+4:
                     if CountOfOpenInPartialChainNotComplete > 0:
                             BasePairChoiceList.append(2)
                 if len(ori_chain)-PositionOfNucleotideChoiceList[i] > 1+4:
-                    #if RNAOriginalChain[PositionOfNucleotideChoiceList[i]] != 'C':
-		    #print('flagAllNon*****')
                     tempList = CalculateNumOfPotentialAcceptant(PositionOfNucleotideChoiceList[i], piece, BPpiece, RNAOriginalChain, MaxAcceptantList, UpperboundForInterval)
                     MaxAcceptant = tempList[1]
                     PartialChain.MaxAcceptantList[PositionOfNucleotideChoiceList[i]] = MaxAcceptant
-                    #print('tempList[0]',tempList[0])
                     if tempList[0] > 0:
-                        BasePairChoiceList.append(1)       
-    #####print('The length of BasePairChoiceList', len(BasePairChoiceList))
-    #Possible_temp = []             
+                        BasePairChoiceList.append(1)
+
     for j in range(len(BasePairChoiceList)):
         PossibleActionSet.append(Action(Nucleotide=NucleotideChoiceList[i], AttachToDirection=AttachToDirectionChoiceList[i], AllowableOtherSide = AllowableOtherSideChoiceList[i], BasePair = BasePairChoiceList[j], PositionOfNucleotide=PositionOfNucleotideChoiceList[i], rewards_1 = 'not deicided yet', rewards_2 = 'not deicided yet', WholeChainBP = 'WC not deicided yet', PartialChain_parent = PartialChain))
-        """
-	Possible_temp.append(BasePairChoiceList[j])
-    if BestWholeChainEverInMemory != []:
-	temp = BestWholeChainEverInMemory[PositionOfNucleotideChoiceList[i]]
-	print('temp now?',temp)
-	if temp == 1.5 or temp==1:
-	    temp = 1
-	elif temp == 2.5 or temp ==2 :
-	    temp = 2
-	elif temp == 0:
-	    temp = 0
-	#decide if the best is feasible
-	if temp in Possible_temp:
-	    PossibleActionSet.append(Action(Nucleotide=NucleotideChoiceList[i], AttachToDirection=AttachToDirectionChoiceList[i], AllowableOtherSide = 'xxxIMTHEBESTxxx', BasePair = temp, PositionOfNucleotide=PositionOfNucleotideChoiceList[i], rewards = BestWholeChainEverInMemoryScore, WholeChainBP = BestWholeChainEverInMemory))
-        """
-    return PossibleActionSet
 
+    return PossibleActionSet
 
 def CheckIfNucleotidesCanBePaired(PositionOfOpenIndex, PositionOfCloseIndex, NucleotideChain):
     PositionOfOpen=NucleotideChain[PositionOfOpenIndex]
@@ -488,7 +450,7 @@ def UpdateBPChain(BPChain, ActionChosen):
         #PositionOfFirstCloseInPartialChain = NewBPChain.index(2)
         #NewBPChain[PositionOfAttachedNucleotide]=1.5
         #NewBPChain[PositionOfFirstCloseInPartialChain]=2.5
-	pass
+        pass
     elif ActionChosen.BasePair == 2:
         #print('FLAG ActionUpdate as 2')
         #print('Length of BPChain:',len(NewBPChain))
