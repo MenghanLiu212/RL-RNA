@@ -1,4 +1,4 @@
-bp_percentage,dp,ensemble_diversity,ent_3,ent_4,ent_5,ent_6,ent_7,ent_8,expected_accuracy,fe_per,gc_perentage,pos_entropy,seq
+bp_percentage,dp,ensemble_diversity,ent_3,ent_4,ent_5,ent_6,ent_7,ent_8,expected_accuracy,fe_per,gc_percentage,pos_entropy,seq
 0.45,(((((........))))).......((((....))))...,0.219584752596,0.838208499682,0.948119264863,0.978508177376,1.0,1.0,1.0,0.392118372293,1.58666667938,0.7,0.414527411482,UCACCCCCGGUCAGGUGGACGACAACGCGCGCAGCAACGG
 0.45,(((((........))))).......((((....))))...,0.0295460265561,0.90973880464,1.0,1.0,1.0,1.0,1.0,0.849169788345,0.271999969482,0.525,0.103429209128,GUGCUUUUCUUAAAGCGCUCACCUAUCUCGCGGGAGAUCG
 0.45,(((((........))))).......((((....))))...,0.25449888345,0.79052162971,0.923450558953,0.989254088688,1.0,1.0,1.0,0.301331326489,0.294871812114,0.85,0.364898693853,GCCGCCCCCUCCCGCGGCACCCAAGACUGGGCCCGGCGGC

@@ -129,7 +129,7 @@ def Put_something_into_csv(something):
     with file("Result_smalltestcase_RNA_MFENFE_2X2_branches_4_min_ENTRNA_Agave.csv", "a") as csvfile:
         writer = csv.writer(csvfile)
         #writer.writerow([str(something)])
-        #writer.writerow(['Name','Ori_Seq', 'Actual_str', 'RNAfold_str', 'Our_alg_str', 'Actual_foladability', 'RNAfold_foladability', 'Our_foldablity', 'RNAfold_distance', 'Our_distance', 'ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per'])
+        #writer.writerow(['Name','Ori_Seq', 'Actual_str', 'RNAfold_str', 'Our_alg_str', 'Actual_foladability', 'RNAfold_foladability', 'Our_foldablity', 'RNAfold_distance', 'Our_distance', 'ent_3', 'gc_percentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per'])
         writer.writerow(something)
 
 def Transfer_T_into_U(seq):
@@ -174,7 +174,7 @@ print('scaler, clf',scaler, clf)
 print('scaler_ori, clf_ori',scaler_ori, clf_ori)
 #Put_something_into_txt('Training time:', str(time.time() - start_time))
 
-title = ['Name','Ori_Seq', 'Actual_str', 'RNAfold_str', 'Our_alg_str',  'RNAfold_distance', 'Our_distance', 'ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per', 'Running_time(sec)']
+title = ['Name','Ori_Seq', 'Actual_str', 'RNAfold_str', 'Our_alg_str',  'RNAfold_distance', 'Our_distance', 'ent_3', 'gc_percentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per', 'Running_time(sec)']
 Put_something_into_csv(title)
 for file_name in os.listdir(path_of_ori_data):
     try:

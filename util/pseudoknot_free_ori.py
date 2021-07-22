@@ -10,12 +10,12 @@ from sklearn.preprocessing import Normalizer
 
 def bulid_model(real_RNA_loc,folder_simulation_result):
     df_real = pd.read_csv(real_RNA_loc, header = 0)
+    df_real.loc['length'] = df_real['seq'].apply(lambda x:len(x))
     df_v1 = df_real[df_real['fe_per'] < 2]
     file_name_list = df_v1['file_name'].tolist()
-    df_v1.loc[:, 'length'] = df_v1['seq'].apply(lambda x:len(x))
     result_training_accuracy_list = []
     result_test_accuracy_list = []
-    feature_set = ['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per']
+    feature_set = ['ent_3', 'gc_percentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per']
 
     mat_all = df_v1[feature_set].to_numpy()
 
@@ -50,7 +50,7 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
 
 
 def pred_foldability(df_pred,clf, scaler):
-    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per']].to_numpy()
+    mat_x = df_pred[['ent_3', 'gc_percentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per']].to_numpy()
     for row_i in mat_x:
         if np.isnan(row_i).any() == True:
             return float('nan')
@@ -61,7 +61,7 @@ def pred_foldability(df_pred,clf, scaler):
 
 
 def pred_foldability_return_all_features(df_pred,clf, scaler):
-    mat_x = df_pred[['ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per']].to_numpy()
+    mat_x = df_pred[['ent_3', 'gc_percentage', 'ensemble_diversity', 'expected_accuracy', 'fe_per']].to_numpy()
     for row_i in mat_x:
         if np.isnan(row_i).any() == True:
             return float('nan')
