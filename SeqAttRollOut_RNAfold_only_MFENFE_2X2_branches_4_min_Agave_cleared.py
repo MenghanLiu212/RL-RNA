@@ -147,7 +147,7 @@ def GetPossibleActions(PartialChain, RNAOriginalChain):
        #####print('PositionOfFirstOpenInPartialChain',PositionOfFirstOpenInPartialChain,'PositionOfFirstCloseInPartialChain',PositionOfFirstCloseInPartialChain,'PositionOfLastOpenInPartialChain',PositionOfLastOpenInPartialChain,'PositionOfLastCloseInPartialChain',PositionOfLastCloseInPartialChain)
     if 1==1: #just for identing
         i =len(NucleotideChoiceList)-1
-        print 'i', i
+        print ('i', i)
         #####print('PositionOfNucleotideChoiceList[i]',PositionOfNucleotideChoiceList[i])
         BasePairChoiceList = []
         if PositionOfNucleotideChoiceList[i] >= RightPositionOfPartialChain: #attach to the right part of partial chain
@@ -162,40 +162,40 @@ def GetPossibleActions(PartialChain, RNAOriginalChain):
             CountOfOpenInPartialChainNotCompleteWithinInterval = BPpieceWithinInterval.count(1)
             #print('UpperboundForInterval',UpperboundForInterval)
             ###Not pairing choice
-            if PositionOfLastOpenInPartialChain!='non': 
+    if PositionOfLastOpenInPartialChain!='non': 
             #and UpperboundForInterval-PositionOfNucleotideChoiceList[i] >= CountOfOpenInPartialChainNotCompleteWithinInterval:#
-		if CheckIfThisOneIsUnpairWillTheRemaingingFeasible(PartialChain, ori_chain, PositionOfLastOpenInPartialChain, PositionOfNucleotideChoiceList[i], BPpiece) == True:
-                    BasePairChoiceList.append(0)
-            elif PositionOfLastOpenInPartialChain=='non':
-                BasePairChoiceList.append(0)
+        if CheckIfThisOneIsUnpairWillTheRemaingingFeasible(PartialChain, ori_chain, PositionOfLastOpenInPartialChain, PositionOfNucleotideChoiceList[i], BPpiece) == True:
+            BasePairChoiceList.append(0)
+        elif PositionOfLastOpenInPartialChain=='non':
+            BasePairChoiceList.append(0)
             ###Condtions
-            if PositionOfLastOpenInPartialChain == PositionOfLastCloseInPartialChain:
-                ConditionAllNon = 1
-            else:
-                ConditionAllNon = 0
-            if ConditionAllNon == 0:
-                if PositionOfLastOpenInPartialChain!='non' and PositionOfLastCloseInPartialChain!='non':  
-                    if PositionOfLastOpenInPartialChain > PositionOfLastCloseInPartialChain:
-                        Condition1 = 1
-                    else:
-                        Condition1=0
+        if PositionOfLastOpenInPartialChain == PositionOfLastCloseInPartialChain:
+            ConditionAllNon = 1
+        else:
+            ConditionAllNon = 0
+        if ConditionAllNon == 0:
+            if PositionOfLastOpenInPartialChain!='non' and PositionOfLastCloseInPartialChain!='non':  
+                if PositionOfLastOpenInPartialChain > PositionOfLastCloseInPartialChain:
+                    Condition1 = 1
                 else:
                     Condition1=0
-                if PositionOfLastOpenInPartialChain!='non' and PositionOfLastCloseInPartialChain=='non': 
-                    Condition1_1 = 1
-                else:
-                    Condition1_1 = 0
-                if PositionOfLastOpenInPartialChain!='non' and PositionOfLastCloseInPartialChain!='non': 
-                    if PositionOfLastOpenInPartialChain <= PositionOfLastCloseInPartialChain:
-                        Condition2 = 1
-                    else:
-                        Condition2=0
-                else:
-                    Condition2=0
-                if PositionOfLastOpenInPartialChain=='non' and PositionOfLastCloseInPartialChain!='non': 
-                    Condition2_1 = 1
-                else:
-                    Condition2_1 = 0
+            else:
+                Condition1=0
+        if PositionOfLastOpenInPartialChain!='non' and PositionOfLastCloseInPartialChain=='non': 
+            Condition1_1 = 1
+        else:
+            Condition1_1 = 0
+        if PositionOfLastOpenInPartialChain!='non' and PositionOfLastCloseInPartialChain!='non': 
+            if PositionOfLastOpenInPartialChain <= PositionOfLastCloseInPartialChain:
+                Condition2 = 1
+            else:
+                Condition2=0
+        else:
+            Condition2=0
+        if PositionOfLastOpenInPartialChain=='non' and PositionOfLastCloseInPartialChain!='non': 
+            Condition2_1 = 1
+        else:
+            Condition2_1 = 0
             ###Start for deciding
             if ConditionAllNon == 0:
                 if (Condition1) or (Condition1_1):
@@ -488,7 +488,7 @@ def UpdateBPChain(BPChain, ActionChosen):
         #PositionOfFirstCloseInPartialChain = NewBPChain.index(2)
         #NewBPChain[PositionOfAttachedNucleotide]=1.5
         #NewBPChain[PositionOfFirstCloseInPartialChain]=2.5
-	pass
+        pass
     elif ActionChosen.BasePair == 2:
         #print('FLAG ActionUpdate as 2')
         #print('Length of BPChain:',len(NewBPChain))

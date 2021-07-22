@@ -236,5 +236,6 @@ if __name__ == '__main__':
                     list_for_the_case='NONE'
                 Put_something_into_csv(list_for_the_case, output_file)
         except Exception as e:
+            print(e)
             print("Sorry, there's no corresponding action to fortified solution.")
             continue
