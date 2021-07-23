@@ -1,9 +1,9 @@
 """
 dataframe
-'file_name', 'seq', 'fe_per','ent_3', 'gc_perentage', 'ensemble_diversity', 'expected_accuracy'
+'file_name', 'seq', 'fe_per','ent_3', 'gc_percentage', 'ensemble_diversity', 'expected_accuracy'
 
 for each RNA name, we generate a csv containing all seqs with the same str:
-'dp', 'ensemble_diversity', 'ent_3', 'expected_accuracy', 'fe_per','gc_perentage', 'seq'
+'dp', 'ensemble_diversity', 'ent_3', 'expected_accuracy', 'fe_per','gc_percentage', 'seq'
 
 """
 
@@ -14,7 +14,7 @@ import os
 import csv
 import json
 
-path_of_ori_data = '/home/menghan/Dropbox (ASU)/RNA/ENTRNA-master_new_MH/ENTRNA-master/util/Neg_label'
+path_of_ori_data = './util/Neg_label'
 
 def Put_something_into_csv(something):
     #python2 can use file instaed of open
@@ -23,7 +23,7 @@ def Put_something_into_csv(something):
         writer.writerow(something)
 
 
-#df = pd.DataFrame(columns=['file_name', 'seq', 'ensemble_diversity','ent_3', 'expected_accuracy', 'fe_per', 'gc_perentage'])
+#df = pd.DataFrame(columns=['file_name', 'seq', 'ensemble_diversity','ent_3', 'expected_accuracy', 'fe_per', 'gc_percentage'])
 
 dfList = []
 
@@ -67,7 +67,7 @@ for file_item in os.listdir(path_of_ori_data):
                     print('Output')
                     df = pd.concat(dfList)
                     df.reset_index(drop=True)
-                    csv_file_name = "/home/menghan/Dropbox (ASU)/RNA/ENTRNA-master_new_MH/ENTRNA-master/util/Neg_label_results/{}.csv".format(file_name)
+                    csv_file_name = "./util/Neg_label_results/{}.csv".format(file_name)
                     df.to_csv(csv_file_name)
 
 

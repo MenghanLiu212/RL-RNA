@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 import RNA
 import math
-import rna_toolkit
-from pseudo_decomposition import Peudo_Decom
+from . import rna_toolkit
+from .pseudo_decomposition import Peudo_Decom
 
 
 def extract_features_pseudoknot_free(seq, sec_str):
@@ -14,14 +14,14 @@ def extract_features_pseudoknot_free(seq, sec_str):
     bp = rna_toolkit.dp_to_bp(dp)
     #print('bp',bp)
     feature_dict['ent_3'] = []
-    feature_dict['gc_perentage'] = []
+    feature_dict['gc_percentage'] = []
     feature_dict['ensemble_diversity'] = []
     feature_dict['expected_accuracy'] = []
     feature_dict['fe_per']  = []
 
     if (rna_toolkit.is_pseudoknotted(bp) > 0) or (len(bp) != len(seq_temp)):
         feature_dict['ent_3'].append(float('nan'))
-        feature_dict['gc_perentage'].append(float('nan'))
+        feature_dict['gc_percentage'].append(float('nan'))
         feature_dict['ensemble_diversity'].append(float('nan'))
         feature_dict['expected_accuracy'].append(float('nan'))
         feature_dict['fe_per'].append(float('nan'))
@@ -61,8 +61,8 @@ def extract_features_pseudoknot_free(seq, sec_str):
                 pos_entropy -= (ubp_i * math.log(ubp_i) + (1 - ubp_i) * math.log(1 - ubp_i))
         pos_entropy /= len(seq_temp)
 
-        gc_perentage = 0
-        gc_perentage = (seq_temp.count('G') + seq_temp.count('C')) / float(len(seq_temp))
+        gc_percentage = 0
+        gc_percentage = (seq_temp.count('G') + seq_temp.count('C')) / float(len(seq_temp))
 
         bp_percentage = 0
         bp_percentage = (dp_temp.count('(') + dp_temp.count(')')) / float(len(seq_temp))
@@ -79,7 +79,7 @@ def extract_features_pseudoknot_free(seq, sec_str):
             fe_per = float('nan')
 
         feature_dict['ent_3'].append(ent_3)
-        feature_dict['gc_perentage'].append(gc_perentage)
+        feature_dict['gc_percentage'].append(gc_percentage)
         feature_dict['ensemble_diversity'].append(ensemble_diversity)
         feature_dict['expected_accuracy'].append(expected_accuracy)
         feature_dict['fe_per'].append(fe_per)
@@ -91,7 +91,7 @@ def extract_features_pseudoknotted(seq, bp):
     feature_dict = {}
     seq_temp = seq
 
-    feature_dict['gc_perentage'] = float('nan')
+    feature_dict['gc_percentage'] = float('nan')
 
     feature_dict['ent_3'] = float('nan')
     feature_dict['ent_4'] = float('nan')
@@ -121,7 +121,7 @@ def extract_features_pseudoknotted(seq, bp):
     if rna_toolkit.entropy_max(len(seq_temp), 8) > 0:
         ent_8 = rna_toolkit.entropy(seq_temp, 8) / rna_toolkit.entropy_max(len(seq_temp), 8)
 
-    gc_perentage = (seq_temp.count('G') + seq_temp.count('C')) / float(len(seq_temp))
+    gc_percentage = (seq_temp.count('G') + seq_temp.count('C')) / float(len(seq_temp))
     
 
 
@@ -146,7 +146,7 @@ def extract_features_pseudoknotted(seq, bp):
     feature_dict['ent_7'] = ent_7
     feature_dict['ent_8'] = ent_8
 
-    feature_dict['gc_perentage'] = gc_perentage
+    feature_dict['gc_percentage'] = gc_percentage
     
     df = pd.DataFrame(feature_dict,index=[0])
     return df

@@ -69,7 +69,7 @@ def UpdateBestWholeChainEverInMemory(BestWholeChainEverInMemory, GlobalPossibleA
         else:
             pass
     if temp == 0:
-        print "Sorry, there are no matching partial chain as parent"
+        print("Sorry, there are no matching partial chain as parent")
         #Here we replace the whole chain and scores of the corresponding next step as fortified's.
         temp_1 =0
         for item in GlobalPossibleActionSet:
@@ -123,7 +123,7 @@ def RollOut(PartialChain, action, OriginalRNAChain):
 
     # Get whole chain with both partial chain constraints and our constraints.
     s = GetWholeStrChain_withConstrainedRNAfold(seq, BPchain)
-    print '*intermi s*:', s
+    print ('*intermi s*:', s)
 
     #break the str s into pieces, and translate it into BPchain
     WholeChain = PartialChainSim
@@ -249,9 +249,9 @@ def RNAfold_Constrained_Situation(seq, BPchain, L, situation_num):
     WC_set = []
     fc_set = ApplyConstraintsForAllPossibleCombo(seq, n, L, BPchain)
     for item in fc_set:
-        print 'start1'
+        print ('start1')
         (s,m) = item.mfe()
-        print 'this s:',s
+        print ('this s:',s)
         FreeEnergy = item.eval_structure(s)
         WC_set.append([s, FreeEnergy])
     #print 'WC_set', WC_set
@@ -469,7 +469,7 @@ def UpdatePartialChainSet(itera, PartialChainSet, RNAOriginalChain, scaler, clf,
 
     UpdateRewardsForAction(GlobalPossibleActionSet, RNAOriginalChain, scaler, clf, scaler_ori, clf_ori)
 
-    print '*Updated Global Action Set*'
+    print ('*Updated Global Action Set*')
     for gpa in GlobalPossibleActionSet:
         print('Action:', 'Nucleotide:', gpa.Nucleotide, 'PositionOfNucleotide:', gpa.PositionOfNucleotide,'BasePair:', gpa.BasePair ,'AllowableOtherSide:', gpa.AllowableOtherSide, 'Reward', gpa.rewards, 'whole chain', gpa.WholeChainBP, 'ori_WC', gpa.ori_WC)
 
@@ -495,12 +495,12 @@ def UpdatePartialChainSet(itera, PartialChainSet, RNAOriginalChain, scaler, clf,
 
 
 
-def Main_function(OriginalRNAChain,scaler, clf, scaler_ori, clf_ori):
+def Main_function(OriginalRNAChain,scaler, clf, scaler_ori, clf_ori, branches):
     RNAOriginalChain = OriginalRNAChain
     iteration_length = len(RNAOriginalChain)
     PartialChainSet = []
     BestWholeChainEverInMemory = SeqAttRollOut_RNAfold.BestWholeChainEverInMemory([], 0, 'initial')
-    Max_branch_num = 4
+    Max_branch_num = branches
 
     InitialPartialChain = SeqAttRollOut_RNAfold.PartialChain(ChainItself = [], ConnectivityLeft = 1, ConnectivityRight =1, BasePairChain = [], PreservedList = [], MaxAcceptantList = [None for x in range(len(OriginalRNAChain))])
     #print('***InitialPartialChain***',InitialPartialChain.ChainItself, InitialPartialChain.BasePairChain, InitialPartialChain.MaxAcceptantList)

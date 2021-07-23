@@ -83,8 +83,8 @@ def ModifyingWholeChainByRNAfold(s):
     return s
 
 #*************************************************************
-path_of_original_csv = '/home/menghan/Dropbox (ASU)/RL-RNA/sanitized_datasets'
-path_of_destination = '/home/menghan/Dropbox (ASU)/RNA/Alg_result_analysis/Takcling_ENTRNA_U_to_T_issue/results'
+path_of_original_csv = './sanitized_datasets'
+#path_of_destination = '/home/menghan/Dropbox (ASU)/RNA/Alg_result_analysis/Takcling_ENTRNA_U_to_T_issue/results'
 #path_of_txt = '/home/menghan/Dropbox (ASU)/RNA/Alg_result_analysis/Takcling_ENTRNA_U_to_T_issue'
 csv_filename = 'rfam_MFENFE.csv'
 #txt_filename = 'Matthews_U_name_MFE.txt'

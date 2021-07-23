@@ -28,7 +28,7 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
         result_training_accuracy_list = []
         result_test_accuracy_list = []
 
-        mat_all = df_v1[feature_set].as_matrix()
+        mat_all = df_v1[feature_set].to_numpy()
 
         train = list(range(len(file_name_list)))
         mat_train_real = mat_all[train]
@@ -37,7 +37,7 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
         for ii in range(len(file_name_train_list)):
             x_true = mat_train_real[ii]
             df_temp = pd.read_csv(folder_simulation_result+file_name_train_list[ii].replace('.ct','.csv'), header = 0)
-            mat_temp_v1 = df_temp[feature_set].as_matrix()
+            mat_temp_v1 = df_temp[feature_set].to_numpy()
 
             distance_list = []
             for row_i in mat_temp_v1:
@@ -63,7 +63,7 @@ def bulid_model(real_RNA_loc,folder_simulation_result):
 
     
 def pred_foldability(df_pred,clf, scaler):
-    mat_x = df_pred[['ent_3','ent_8','bfe_per']].as_matrix()
+    mat_x = df_pred[['ent_3','ent_8','bfe_per']].to_numpy()
     for row_i in mat_x:
         if np.isnan(row_i).any() == True:
             return float('nan')

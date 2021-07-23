@@ -51,7 +51,7 @@ A csv file containing the following columns:
 **The remaining columns are ENTRNA evaluations**
 
 8. 'ent_3', sequence entropy with window size three, calculation details referred to Congzhe's paper
-9. 'gc_perentage', the percentage of G and C in the input RNA seq.
+9. 'gc_percentage', the percentage of G and C in the input RNA seq.
 10. 'ensemble_diversity', calculation details referred to Congzhe's paper
 11. 'expected_accuracy', calculation details referred to Congzhe's paper
 12. 'fe_per', calculation details referred to Congzhe's paper

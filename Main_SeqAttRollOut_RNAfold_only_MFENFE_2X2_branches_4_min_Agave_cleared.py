@@ -76,9 +76,9 @@ def UpdateBestWholeChainEverInMemory(BestWholeChainEverInMemory, GlobalPossibleA
             #print '******FLAGGGGG********'
         else:
             pass
-    print 'temp in middle', temp
+    print ('temp in middle', temp)
     if temp == 0:
-        print "Sorry, there are no matching partial chain as parent(1)"
+        print ("Sorry, there are no matching partial chain as parent(1)")
         #Here we replace the whole chain and scores of the corresponding next step as fortified's.
         temp_1 =0
         for item in GlobalPossibleActionSet:
@@ -95,7 +95,7 @@ def UpdateBestWholeChainEverInMemory(BestWholeChainEverInMemory, GlobalPossibleA
             #print 'BestWholeChainEverInMemory.ChainItself[:(position_of_nucleotide-1)]', BestWholeChainEverInMemory.ChainItself[:(position_of_nucleotide-1)]
             if item.BasePair == temp_nuc and item.WholeChainBP[:(position_of_nucleotide-1)] == BestWholeChainEverInMemory.ChainItself[:(position_of_nucleotide-1)]:
                 temp_1 = temp_1 +1
-                print 'An action is replaced by the suggestion of Fortified.'
+                print ('An action is replaced by the suggestion of Fortified.')
                 new_item = deepcopy(item)
                 new_item.WholeChainBP = BestWholeChainEverInMemory.ChainItself
                 new_item.ori_WC = BestWholeChainEverInMemory.ChainItself
@@ -103,7 +103,7 @@ def UpdateBestWholeChainEverInMemory(BestWholeChainEverInMemory, GlobalPossibleA
                     new_item.rewards_1 = BestWholeChainEverInMemory.rewards
                 elif BestWholeChainEverInMemory.metric == 2:
                     new_item.rewards_2 = BestWholeChainEverInMemory.rewards
-                print 'item.Parent', item.PartialChain_parent.BasePairChain, 'VVVSSS', 'new_item.PartialChain_parent', new_item.PartialChain_parent.BasePairChain
+                print ('item.Parent', item.PartialChain_parent.BasePairChain, 'VVVSSS', 'new_item.PartialChain_parent', new_item.PartialChain_parent.BasePairChain)
                 BestWholeChainEverInMemory.Parent = new_item.PartialChain_parent
 
                 new_rewards_1 = entrna_main(''.join(map(str, OriginalRNAChain)), ''.join(map(str, BP_to_DP(BestWholeChainEverInMemory.ChainItself))), scaler, clf)
@@ -115,7 +115,7 @@ def UpdateBestWholeChainEverInMemory(BestWholeChainEverInMemory, GlobalPossibleA
                 append_list.append(new_item)
         #print 'append_list'
         for itera in append_list:
-            print 'New_action_deepcopy', itera.Nucleotide, itera.BasePair, itera.rewards, itera.PartialChain_parent, itera.WholeChainBP
+            print ('New_action_deepcopy', itera.Nucleotide, itera.BasePair, itera.rewards, itera.PartialChain_parent, itera.WholeChainBP)
             GlobalPossibleActionSet.append(itera)
         if temp_1 == 0:
             raise Exception("Sorry, there's no corresponding action to fortified solution.(2)")
@@ -285,8 +285,8 @@ def RNAfold_Constrained_Situation(seq, BPchain, L, situation_num):
         #print '.'*len(item[0])
         dec = DecideIfAllDot(item[0])
         if dec == True:
-            print 'flag remove'
-            print 'this item' ,item
+            print ('flag remove')
+            print ('this item' ,item)
             removal_list.append(item)
     #print 'removal list:', removal_list
     if removal_list != []:
@@ -565,7 +565,7 @@ print('InitialPartialChain',InitialPartialChain.ChainItself, InitialPartialChain
 """
 #-------------------------------------------------------------------------------------
 
-def Main_function(OriginalRNAChain,scaler, clf, scaler_ori, clf_ori):
+def Main_function(OriginalRNAChain,scaler, clf, scaler_ori, clf_ori, branches):
     RNAOriginalChain = OriginalRNAChain
     iteration_length = len(RNAOriginalChain)
     PartialChainSet = []
