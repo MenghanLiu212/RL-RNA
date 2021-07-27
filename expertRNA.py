@@ -26,9 +26,9 @@ from util.pseudoknot_free_ori import entrna_main_return_all_features_ori
 def Read_dbn(directory,file_name):
     with open(os.path.join(directory, file_name), "r") as f:
         lines = f.readlines()
-    title = lines[0].strip('>')
-    seq = lines[1]
-    actual = lines[2]
+    title = lines[0].strip('>').strip()
+    seq = lines[1].strip()
+    actual = lines[2].strip()
     return (title, seq, actual)
 
 def Transfer_Ori_Seq_To_Our_Form(Ori_Seq):
