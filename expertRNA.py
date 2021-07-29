@@ -26,7 +26,8 @@ from util.pseudoknot_free_ori import entrna_main_return_all_features_ori
 def Read_dbn(directory,file_name):
     with open(os.path.join(directory, file_name), "r") as f:
         lines = f.readlines()
-    title = lines[0].strip('>').strip()
+    ext = file_name.split('.')[-1]
+    title = file_name.strip(ext)
     seq = lines[1].strip()
     actual = lines[2].strip()
     return (title, seq, actual)
@@ -212,7 +213,7 @@ if __name__ == '__main__':
                         Expert_FE
                     ]
                 else:
-                    list_for_the_case='NONE'
+                    list_for_the_case=['NONE']
                 Put_something_into_csv(list_for_the_case, output_file)
         except Exception as e:
             print(e)
