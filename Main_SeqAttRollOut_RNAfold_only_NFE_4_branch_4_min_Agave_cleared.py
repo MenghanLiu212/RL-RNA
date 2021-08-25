@@ -249,9 +249,9 @@ def RNAfold_Constrained_Situation(seq, BPchain, L, situation_num):
     WC_set = []
     fc_set = ApplyConstraintsForAllPossibleCombo(seq, n, L, BPchain)
     for item in fc_set:
-        print ('start1')
+        #print ('start1')
         (s,m) = item.mfe()
-        print ('this s:',s)
+        #print ('this s:',s)
         FreeEnergy = item.eval_structure(s)
         WC_set.append([s, FreeEnergy])
     #print 'WC_set', WC_set
@@ -507,14 +507,14 @@ def Main_function(OriginalRNAChain,scaler, clf, scaler_ori, clf_ori, branches):
     PartialChainSet.append(InitialPartialChain)
 
     for itera in range(iteration_length):
-        print('**************************Begin Iteration*************************************')
-        print('**Iteration**',itera)
-        print('**OriginalRNAChain**', OriginalRNAChain)
+        #print('**************************Begin Iteration*************************************')
+        #print('**Iteration**',itera)
+        #print('**OriginalRNAChain**', OriginalRNAChain)
         PartialChainSet, BestWholeChainEverInMemory = UpdatePartialChainSet(itera, PartialChainSet, RNAOriginalChain, scaler, clf, scaler_ori, clf_ori, BestWholeChainEverInMemory)
-        print('***ParitalChainSet:***')
-        for item in PartialChainSet:
-            print('PartialChain:', 'BP_Chain:', item.BasePairChain, 'DP_Chain', SeqAttRollOut_RNAfold.TransferIntoDP(item))
-        print('**************************END OF ITER*****************************************')
+        #print('***ParitalChainSet:***')
+        #for item in PartialChainSet:
+        #    print('PartialChain:', 'BP_Chain:', item.BasePairChain, 'DP_Chain', SeqAttRollOut_RNAfold.TransferIntoDP(item))
+        #print('**************************END OF ITER*****************************************')
 
     print('**************************Statistics*****************************************')
     print('the length of RNAchain:', len(RNAOriginalChain))

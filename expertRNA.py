@@ -36,6 +36,7 @@ def Transfer_Ori_Seq_To_Our_Form(Ori_Seq):
     return [i for i in Ori_Seq]
 
 def Calculate_Distance_str(str_actual,str2):
+    print(str_actual, str2)
     str_actual = [str_actual[i] for i in range(0, len(str_actual))]
     str2 = [str2[i] for i in range(0, len(str2))]
     score = 0.0
@@ -141,7 +142,7 @@ if __name__ == '__main__':
     Put_something_into_csv(header, output_file)
 
     for file_name in os.listdir(path_of_ori_data):
-        try:
+        
             #Read and process input data
             str_name, Ori_Seq, Actual_str = Read_dbn(path_of_ori_data, file_name)
             new_seq = Transfer_Ori_Seq_To_Our_Form(Ori_Seq)
@@ -163,6 +164,7 @@ if __name__ == '__main__':
             alg_run_time = time.time() - alg_start_time
 
             #Hamming distance between RNAfold prediction and the actual structure
+            print(Actual_str)
             RNAfold_distance = Calculate_Distance_str(Actual_str, RNAfold_str)
 
             # Process the ExpertRNA output and produce output file
@@ -215,7 +217,7 @@ if __name__ == '__main__':
                 else:
                     list_for_the_case=['NONE']
                 Put_something_into_csv(list_for_the_case, output_file)
-        except Exception as e:
-            print(e)
-            print("Sorry, there's no corresponding action to fortified solution.")
-            continue
+        #except Exception as e:
+        #    print(e)
+        #    print("Sorry, there's no corresponding action to fortified solution.")
+        #    continue
