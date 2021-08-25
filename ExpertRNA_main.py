@@ -613,7 +613,7 @@ def GenereateTopActionSet(GlobalPossibleActionSet, SolutionSet, OriginalRNAChain
     for action in temp_GlobalPossibleActionSet:
         ct = 0
         for item in res:
-            if action.Nucleotide == item.Nucleotide and action.BasePair==item.BasePair and action.PositionOfNucleotide==item.PositionOfNucleotide and action.rewards==item.rewards and action.PartialChain_parent==item.PartialChain_parent:
+            if action.Nucleotide == item.Nucleotide and action.BasePair==item.BasePair and action.PositionOfNucleotide==item.PositionOfNucleotide and action.rewards==item.rewards and action.PartialChain_parent.ori_WC==item.PartialChain_parent.ori_WC:
                 ct+=1
         if ct == 0:
             res.append(action)
