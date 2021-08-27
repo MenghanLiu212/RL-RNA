@@ -98,29 +98,35 @@ def main(rank):
                     l = l.split(",")
                     if l[0] == 'NONE':
                         continue
-                    name = l[1]
-                    seq = l[2]
+                    name = l[0]
+                    try:
+                        seq = l[1]
+                    except:
+                        print(l)
                     seq_lens.append(len(seq))
-                    actual = l[3]
-                    RNAfold = l[4]
-                    rollout = l[5]
+                    actual = l[2]
+                    RNAfold = l[3]
+                    try:
+                        rollout = l[4]
+                    except:
+                        print(l)
                     family = name.split("_")[0]
-                    actual_foldabilityMFE.append(float(l[14]))
-                    RNAfold_foldabilityMFE.append(float(l[17]))
-                    rollout_foldabilityMFE.append(float(l[20]))
-                    actual_foldabilityNFE.append(float(l[15]))
-                    RNAfold_foldabilityNFE.append(float(l[18]))
-                    rollout_foldabilityNFE.append(float(l[21]))
-                    if rank == 1 and step == 4 and float(l[18]) > float(l[21]) and 'NFE' in fname and not 'MFE' in fname:
+                    actual_foldabilityMFE.append(float(l[13]))
+                    RNAfold_foldabilityMFE.append(float(l[15]))
+                    rollout_foldabilityMFE.append(float(l[17]))
+                    actual_foldabilityNFE.append(float(l[14]))
+                    RNAfold_foldabilityNFE.append(float(l[16]))
+                    rollout_foldabilityNFE.append(float(l[18]))
+                    if rank == 1 and step == 4 and float(l[16]) > float(l[18]) and 'NFE' in fname and not 'MFE' in fname:
                         count += 1
-                        print(count, name, float(l[18]), float(l[21])) #structures where RNAfold had higher foldability than ExpertRNA
-                    elif rank == 1 and step ==4 and float(l[17]) > float(l[20]) and 'MFE' in fname and not 'NFE' in fname:
+                        print(count, name, float(l[16]), float(l[18])) #structures where RNAfold had higher foldability than ExpertRNA
+                    elif rank == 1 and step ==4 and float(l[15]) > float(l[17]) and 'MFE' in fname and not 'NFE' in fname:
                         count += 1
-                        print(count, name, float(l[17]), float(l[20])) #structures where RNAfold had higher foldability than expertRNA
-                    runtime.append(float(l[13]))
-                    actual_MFE.append(float(l[23]))
-                    RNAfold_MFE.append(float(l[24]))
-                    rollout_MFE.append(float(l[25]))
+                        print(count, name, float(l[15]), float(l[17])) #structures where RNAfold had higher foldability than expertRNA
+                    runtime.append(float(l[12]))
+                    actual_MFE.append(float(l[19]))
+                    RNAfold_MFE.append(float(l[20]))
+                    rollout_MFE.append(float(l[21]))
                     
                     make_fasta_db(name, out_number, "actual", seq, actual)
                     make_fasta_db(name, out_number, "RNAfold", seq, RNAfold)

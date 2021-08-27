@@ -13,6 +13,7 @@ import time
 import argparse
 
 import RNA
+from numpy import str_
 
 from util.pseudoknot_free import entrna_main
 from util.pseudoknot_free_ori import entrna_main_ori
@@ -22,37 +23,20 @@ from util.pseudoknot_free_ori import entrna_main_return_all_features_ori
 
 #*************************************************************
 
-def Read_Seq(direct,file_name):
-    with open(os.path.join(direct, file_name), "r") as f:
-        mylist = f.read().splitlines()
-    Ori_Seq = mylist[1]
-    return Ori_Seq
+def Read_dbn(directory,file_name):
+    with open(os.path.join(directory, file_name), "r") as f:
+        lines = f.readlines()
+    ext = file_name.split('.')[-1]
+    title = file_name.strip(ext)
+    seq = lines[1].strip()
+    actual = lines[2].strip()
+    return (title, seq, actual)
 
 def Transfer_Ori_Seq_To_Our_Form(Ori_Seq):
     return [i for i in Ori_Seq]
 
-def Read_Actual_str(direct,file_name):
-    with open(os.path.join(direct, file_name), "r") as f:
-        mylist = f.read().splitlines()
-    print(mylist[2][8:])
-    Actual_str = mylist[2][8:]
-    return Actual_str
-
-def Read_RNAfold_str(direct,file_name):
-    with open(os.path.join(direct, file_name), "r") as f:
-        mylist = f.read().splitlines()
-    print(mylist[3][9:])
-    RNAfold_str = mylist[3][9:]
-    return RNAfold_str
-
-def Read_Our_alg_str(direct,file_name):
-    with open(os.path.join(direct, file_name), "r") as f:
-        mylist = f.read().splitlines()
-    print(mylist[4][6:])
-    RNAfold_str = mylist[4][6:]
-    return RNAfold_str
-
 def Calculate_Distance_str(str_actual,str2):
+    print(str_actual, str2)
     str_actual = [str_actual[i] for i in range(0, len(str_actual))]
     str2 = [str2[i] for i in range(0, len(str2))]
     score = 0.0
@@ -158,15 +142,14 @@ if __name__ == '__main__':
     Put_something_into_csv(header, output_file)
 
     for file_name in os.listdir(path_of_ori_data):
-        try:
-            #In this step we taclke data which contains T and substitute T with U
-            Ori_Seq = Read_Seq(path_of_ori_data,file_name)
+        
+            #Read and process input data
+            str_name, Ori_Seq, Actual_str = Read_dbn(path_of_ori_data, file_name)
             new_seq = Transfer_Ori_Seq_To_Our_Form(Ori_Seq)
             new_seq = Transfer_T_into_U(new_seq)
-            Ori_Seq = ''.join(map(str, new_seq)) #???
+            Ori_Seq = ''.join(map(str, new_seq)) 
 
             #read the actual structure
-            Actual_str = Read_Actual_str(path_of_ori_data, file_name)
             fc = RNA.fold_compound(Ori_Seq)
 
             #Fold the structure with RNAfold
@@ -174,8 +157,6 @@ if __name__ == '__main__':
             RNAfold_str = s
             RNAfold_str = ModifyingWholeChainByRNAfold(RNAfold_str)
             RNAfold_str = ''.join(map(str, RNAfold_str))
-            #RNAfold_str = Read_RNAfold_str(path_of_ori_data,file_name)
-            #RNAfold_str = ModifyingWholeChainByRNAfold(RNAfold_str)
 
             #Fold the structure with ExpertRNA
             alg_start_time = time.time()
@@ -183,6 +164,7 @@ if __name__ == '__main__':
             alg_run_time = time.time() - alg_start_time
 
             #Hamming distance between RNAfold prediction and the actual structure
+            print(Actual_str)
             RNAfold_distance = Calculate_Distance_str(Actual_str, RNAfold_str)
 
             # Process the ExpertRNA output and produce output file
@@ -209,7 +191,7 @@ if __name__ == '__main__':
                     Expert_foldability_NFE = entrna_main(Ori_Seq, Our_alg_str, scaler, clf)
 
                     list_for_the_case = [
-                        file_name, 
+                        str_name, 
                         Ori_Seq, 
                         Actual_str, 
                         RNAfold_str, 
@@ -233,9 +215,9 @@ if __name__ == '__main__':
                         Expert_FE
                     ]
                 else:
-                    list_for_the_case='NONE'
+                    list_for_the_case=['NONE']
                 Put_something_into_csv(list_for_the_case, output_file)
-        except Exception as e:
-            print(e)
-            print("Sorry, there's no corresponding action to fortified solution.")
-            continue
+        #except Exception as e:
+        #    print(e)
+        #    print("Sorry, there's no corresponding action to fortified solution.")
+        #    continue
