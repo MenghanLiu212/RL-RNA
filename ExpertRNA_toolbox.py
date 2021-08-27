@@ -79,15 +79,15 @@ def TurnWholeChainToPCPairingInfo(WholeChain, PartialChain):
     #In this function, we grab the pairing info of partial chain from the whole chain.
     #The WC can be WC saved in PC from last step
 
-    print('TurnWholeChainToPCPairingInfo:')
-    print('WholeChain:', WholeChain)
-    print('PartialChain:', PartialChain)
+    #print('TurnWholeChainToPCPairingInfo:')
+    #print('WholeChain:', WholeChain)
+    #print('PartialChain:', PartialChain)
 
     AllOpenPosInPC = []
     for i in range(0, len(PartialChain)):
         if PartialChain[i] == 1 or PartialChain[i] == 1.5:
             AllOpenPosInPC.append(i)
-    print('AllOpenPosInPC:', AllOpenPosInPC)
+    #print('AllOpenPosInPC:', AllOpenPosInPC)
 
     # Turn [1,1.5,0,0,0,0,2.5,...] form into [[1,6]] form
     pair_table = parse_dot_bracket(WholeChain).tolist()
@@ -95,7 +95,7 @@ def TurnWholeChainToPCPairingInfo(WholeChain, PartialChain):
     for i in range(0, len(pair_table)):
         if pair_table[i] != -1 and i < pair_table[i]:
             pair_table_points.append([i, pair_table[i]])
-    print('pair_table_points:', pair_table_points)
+    #print('pair_table_points:', pair_table_points)
 
     # grab pairing info only for opens in pc
     # the form  is  [[1,6],[2,5],...] like so
@@ -175,7 +175,7 @@ def UpdateBPChain(BPChain, ActionChosen):
     """
     This function updates the BP chain state after we attach a new one, it transfers uncomplete to newly complete: 1 to 1.5, 2 to 2.5
     """
-    print('--*--UpdateBPChain--*--')
+    #print('--*--UpdateBPChain--*--')
     # print('test_ori_BP',BPChain)
     # NewBPChain = deepcopy(BPChain)
     NewBPChain = BPChain
@@ -189,9 +189,9 @@ def UpdateBPChain(BPChain, ActionChosen):
         # print('testNewBPChainOriginal:',NewBPChain)
         PositionOfAttachedNucleotide = ActionChosen.PositionOfNucleotide
         PositionOfLastOpenInPartialChain = len(NewBPChain) - 1 - NewBPChain[::-1].index(1)
-        print('PositionOfAttachedNucleotide', PositionOfAttachedNucleotide)
-        print('PositionOfLastOpenInPartialChain', PositionOfLastOpenInPartialChain)
-        print('length of NewBPChain', len(NewBPChain))
+        #print('PositionOfAttachedNucleotide', PositionOfAttachedNucleotide)
+        #print('PositionOfLastOpenInPartialChain', PositionOfLastOpenInPartialChain)
+        #print('length of NewBPChain', len(NewBPChain))
         NewBPChain[PositionOfAttachedNucleotide] = 2.5
         NewBPChain[PositionOfLastOpenInPartialChain] = 1.5
     # print('testNewBPChainUpdated:',NewBPChain)
@@ -203,7 +203,7 @@ def TakeAction(PartialChain, ActionChosen):
     Here we take the action chosen and update the partial chain.
     $$$We also need to update BPchain.
     """
-    print('--*--TakeAction--*--')
+    #print('--*--TakeAction--*--')
     NewPartialChain = deepcopy(PartialChain)
     # NewPartialChain = PartialChain
     NewPartialChain.ChainItself.append(ActionChosen.Nucleotide)
@@ -285,9 +285,9 @@ def GetPossibleActions(Solution, RNAOriginalChain, min_dbp):
             BasePairChoiceList.append(2)
     #Can we attach open?
     if p + min_dbp + 1 <= len(RNAOriginalChain):
-        print('flag1')
+        #print('flag1')
         if CheckIfThisOneIOpenWillTheRemaingingFeasible(RNAOriginalChain, PositionOfLastOpenInPartialChain, p, BPpiece, min_dbp) == True:
-            print('flag2')
+            #print('flag2')
             BasePairChoiceList.append(1)
     
     for j in range(len(BasePairChoiceList)):
@@ -370,7 +370,7 @@ def CheckIfThisOneIOpenWillTheRemaingingFeasible(RNAOriginalChain, PositionOfLas
     if checkDic == {}:
         check = True
     else:
-        print('checkDic:', checkDic)
+        #print('checkDic:', checkDic)
         check = all(value == 'paired' for value in checkDic.values())
     # print('*checkDic:',checkDic)
     # print('*RNAchain now:',RNAOriginalChain_copy)

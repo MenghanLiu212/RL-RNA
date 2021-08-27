@@ -32,6 +32,13 @@ def Read_dbn(directory,file_name):
     actual = lines[2].strip()
     return (title, seq, actual)
 
+def read_fasta(directory,file_name):
+    with open(os.path.join(directory, file_name), "r") as f:
+        lines = f.readlines()
+    title = lines[0].strip('>').strip()
+    seq = lines[1].strip()
+    return (title, seq)
+
 def Transfer_Ori_Seq_To_Our_Form(Ori_Seq):
     return [i for i in Ori_Seq]
 
@@ -165,23 +172,28 @@ def testing_output(file_name, Ori_Seq, Actual_str, RNAfold_str, Our_alg_str_list
                 Expert_FE
             ]
         else:
-            list_for_the_case = 'NONE'
+            list_for_the_case = 'NONE,NONE'
         Put_something_into_csv(list_for_the_case, output_file)
-        return
+    return
 
-def prod_output():
-    pass
+def prod_output(str_name, Ori_Seq, Our_alg_str_list, alg_run_time, output_file):
+    print('Runtime:', alg_run_time)
+    print('Writing results to file_name:', output_file)
+    with open(output_file, 'a') as f:
+        f.write('>'+str_name+'\n')
+        f.write(Ori_Seq+'\n')
+        for s in Our_alg_str_list:
+            f.write(s+'\n')
 
 #**********************************
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='A RNA structure prediction algorithm which combines multiple heuristics and evaluation functions.')
-    parser.add_argument('input_data', type=str, nargs=1, help="The path to a directory containing input sequences.  Each sequence should be a separate .ct file.")
-    #parser.add_argument('expert_set', type=str, nargs='+', help="The Expert used to evaluate partial solutions, and branches to maintain for each expert. Expert should choose from 'Entrna_MFE', 'Entrna_NFE'. Should in the form of [expert name, branch num]")
+    parser.add_argument('input_data', type=str, nargs=1, help="The path to a directory containing input sequences.  Each sequence should be a separate fasta file.")
     parser.add_argument('-e', '--expert_set', metavar='expert_set', nargs=2, action='append', help="The Expert used to evaluate partial solutions, and branches to maintain for each expert. Expert should choose from 'ENTRNA_MFE', 'ENTRNA_NFE'. Should in the form of [expert name, branch num] And input should be call the -fd multiple times for each input.")
     parser.add_argument('-f', '--folder_set', metavar='folder_set', nargs=2, action='append', help="The folder to complete partial solutions. Should choose from 'RNAfold' or 'CONTRAfold'. Type should choose from nonspecific or specific. Should in the form of [folder name, type]. And input should be call the -fd multiple times for each input.")
     parser.add_argument('-o', '--output', metavar='output_file', type=str, nargs=1, help='name of file to write results out to in .csv format')
     parser.add_argument('-m', '--min_basepair_distance', metavar='min_bp_dist', type=int, default=3, help='The minimum basepair distance')
-    parser.add_argument('-t', '--testing', metavar='testing', action='store_const', const=True, default=False, help='If set the algorithm expects a true structure for each input and produces a comparison between the prediction and the real score.')
+    parser.add_argument('-t', '--testing', metavar='testing', action='store_const', const=True, default=False, help='If set the algorithm expects a true structure for each input on the line following the sequence and produces a comparison between the prediction and the real score.')
     args = parser.parse_args()
     
     folder_nameset = args.folder_set
@@ -194,43 +206,50 @@ if __name__ == '__main__':
     if args.output:
         output_file = args.output[0]
     else:
-        output_file = "ExpertRNA_output_v2_test.csv"
+        if args.testing:
+            output_file = "ExpertRNA_output_v2_test.csv"
+        else:
+            output_file = "ExpertRNA_output_v2.dbn"
 
+    #prepare output file
     clear_output(output_file)
-
-    start_time = time.time()
+    if args.testing:
+        testing_header(output_file)
+    else:
+        with open(output_file, 'w+') as f:
+            f.write('')
 
     # Train the ENTRNA model
     scaler, clf = Train_ENTRNA()
     scaler_ori, clf_ori = Train_ENTRNA_ori()
 
-    if args.testing:
-        testing_header(output_file)
+
 
     for file_name in os.listdir(path_of_ori_data):
-        
+        try:
             #In this step we tackle data which contains T and substitute T with U
-            str_name, Ori_Seq, Actual_str = Read_dbn(path_of_ori_data, file_name)
+            if args.testing:
+                str_name, Ori_Seq, Actual_str = Read_dbn(path_of_ori_data, file_name)
+            else:
+                str_name, Ori_Seq = read_fasta(path_of_ori_data, file_name)
+
             new_seq = Transfer_Ori_Seq_To_Our_Form(Ori_Seq)
             new_seq = Transfer_T_into_U(new_seq)
             Ori_Seq = ''.join(map(str, new_seq)) #???
             
             #check
-            print('new_seq:', new_seq)
+            print('seq:', Ori_Seq)
             print('folder_nameset:', folder_nameset)
             print('expert_nameset:', expert_nameset)
             print('min_dbp:', min_dbp)
 
-            #read the actual structure
-            fc = RNA.fold_compound(Ori_Seq)
-
-            #Fold the structure with RNAfold
-            (s, mm) = fc.mfe()
-            RNAfold_str = s
-            RNAfold_str = ModifyingWholeChainByRNAfold(RNAfold_str)
-            RNAfold_str = ''.join(map(str, RNAfold_str))
-            #RNAfold_str = Read_RNAfold_str(path_of_ori_data,file_name)
-            #RNAfold_str = ModifyingWholeChainByRNAfold(RNAfold_str)
+            if args.testing:
+                #Fold the structure with RNAfold
+                fc = RNA.fold_compound(Ori_Seq)
+                (s, mm) = fc.mfe()
+                RNAfold_str = s
+                RNAfold_str = ModifyingWholeChainByRNAfold(RNAfold_str)
+                RNAfold_str = ''.join(map(str, RNAfold_str))
 
             #Fold the structure with ExpertRNA
             alg_start_time = time.time()
@@ -239,8 +258,10 @@ if __name__ == '__main__':
 
             if args.testing:
                 testing_output(file_name, Ori_Seq, Actual_str, RNAfold_str, Our_alg_str_list, scaler, clf, scaler_ori, clf_ori, alg_run_time)
+            else:
+                prod_output(str_name, Ori_Seq, Our_alg_str_list, alg_run_time, output_file)
             
-        #except Exception as e:
-        #    print(e)
-        #    print("Sorry, there's no corresponding action to fortified solution.")
-        #    continue
+        except Exception as e:
+            print(e)
+            print("Sorry, there's no corresponding action to fortified solution.")
+            continue

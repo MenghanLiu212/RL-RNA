@@ -45,10 +45,10 @@ class Folder():
         """
         $$$ NOT IN USE. $$$
         """
-        if self.Name == 'RNAfold':
+        if self.Name.lower() == 'rnafold':
             #RNAfold
             WholeChain = self.BaseHeuristics_RNAfold(self, BPchain, seq, now_position, now_BP, OriginalRNAChain)
-        elif self.Name == 'CONTRAfold':
+        elif self.Name.lower() == 'contrafold':
             #CONTRAfold
             WholeChain = self.BaseHeuristics_CONTRAfold(self, seq, constraint_pair_set, now_position)
         return WholeChain
@@ -219,7 +219,7 @@ class Folder():
             return fc_set
 
         #function begin
-        print('--*--BaseHeuristics_RNAfold--*--')
+        #print('--*--BaseHeuristics_RNAfold--*--')
         if min_dbp == 4:
             #start restricting for min_dbp =4
             s = GetWholeStrChain_withConstrainedRNAfold(seq, BPchain, action)
@@ -234,14 +234,14 @@ class Folder():
             #if min_dbp<=3
             fc = ApplyConstraintsFromPartialChain(seq, BPchain)
             (s, mm) = fc.mfe()
-            print("%s\n%s (MM: %d)\n" %  (seq, s, -mm))
+            #print("%s\n%s (MM: %d)\n" %  (seq, s, -mm))
         return s
 
 
     def BaseHeuristics_CONTRAfold(self, seq, constraint_pair_set, now_position):
         # In this function, this is the direct CONTRAfold application, input action with who pair to who, and solution
         #This is the function of CONTRAfold,  we need to turn pc and constraints into BPSEQ file and save it to a directory, then extract
-        print('--*--BaseHeuristics_CONTRAfold--*--')
+        #print('--*--BaseHeuristics_CONTRAfold--*--')
         #print('constraint_pair_set:', constraint_pair_set)
         #print('now_position:', now_position)
         #print 'seq:', seq
@@ -303,10 +303,10 @@ class Expert():
     def GetRewards(self, dp_str, OriginalRNAChain, scaler, clf, scaler_ori, clf_ori):
         seq = OriginalRNAChain
         seq_str = ''.join(map(str, seq))
-        if self.Name == 'ENTRNA_MFE':
+        if self.Name.lower() == 'entrna_mfe':
             foldability = entrna_main_ori(seq_str, dp_str, scaler_ori, clf_ori)
             rewards = foldability
-        elif self.Name == 'ENTRNA_NFE':
+        elif self.Name.lower() == 'entrna_nfe':
             foldability = entrna_main(seq_str, dp_str, scaler, clf)
             rewards = foldability
         else:
@@ -318,7 +318,7 @@ class Expert():
 #---------------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------------
 def UpdateSolutionSet(itera, SolutionSet, RNAOriginalChain, Folder_set, Expert_set, min_dbp, scaler, clf, scaler_ori, clf_ori):
-    print('--*--UpdateSolutionSet--*--')
+    #print('--*--UpdateSolutionSet--*--')
     GlobalPossibleActionSet = []
     for pc in SolutionSet:
         LocalPossibleActionSet = GenerateLocalPossibleActionSet(pc, RNAOriginalChain, min_dbp)
@@ -382,13 +382,13 @@ def GenerateLocalPossibleActionSet(Solution, RNAOriginalChain, min_dbp):
     So we get a LocalPossibleActionSet, which is an attribute of the ParitalChain.
     Also, we append all the actions in LocalPossibleActionSet to GlobalPossibleActionSet.
     """
-    print('--*--GenerateLocalPossibleActionSet--*--')
+    #print('--*--GenerateLocalPossibleActionSet--*--')
     LocalPossibleActionSet = toolbox.GetPossibleActions(Solution, RNAOriginalChain, min_dbp)
     return LocalPossibleActionSet
 
 
 def UpdateRewardsForAction(PossibleActionSet, OriginalRNAChain, Folder_set, Expert_set, min_dbp, scaler, clf, scaler_ori, clf_ori):
-    print('--*--UpdateRewardsForAction--*--')
+    #print('--*--UpdateRewardsForAction--*--')
     PossibleActionSet_new=[]
     for action in PossibleActionSet:
         Solution = action.PartialChain_parent
@@ -421,7 +421,7 @@ def RollOut(Solution, action, OriginalRNAChain, Folder_set, Expert_set, min_dbp,
     """
     def CONTRAfold_Permute_Selection(PC, seq, WC_before, now_position, now_BP, OriginalRNAChain, scaler, clf, scaler_ori, clf_ori, PartialChainSim, min_dbp):
         # In this function, we permuatate all possible pairing for this action pos, and select the best pairing and WC(CONTRAfold) by ENTRNA
-        print('--*--CONTRAfold_Permute_Selection:--*--')
+        #print('--*--CONTRAfold_Permute_Selection:--*--')
         #PartialChainCopy = deepcopy(SolutionSim)
         WC_before_bp = toolbox.TransferOursIntoDP(WC_before)
         PCPairingInfo = toolbox.TurnWholeChainToPCPairingInfo(WC_before_bp, PC)
@@ -431,7 +431,7 @@ def RollOut(Solution, action, OriginalRNAChain, Folder_set, Expert_set, min_dbp,
             chosen_WC = fd.BaseHeuristics_CONTRAfold(seq, PCPairingInfo, now_position)
         elif now_BP == 2:
             open_pair = len(PC)-1-PC[::-1].index(1)
-            print('open pair:', open_pair)
+            #print('open pair:', open_pair)
             #delete the pair with last open
             remove_list=[]
             for item in PCPairingInfo:
@@ -485,7 +485,7 @@ def RollOut(Solution, action, OriginalRNAChain, Folder_set, Expert_set, min_dbp,
         return rewards
 
     #Rollout function begin
-    print('--*--Rollout:--*--')
+    #print('--*--Rollout:--*--')
     SolutionSim = deepcopy(Solution)
     updated_action = deepcopy(action)
     now_position = action.PositionOfNucleotide
@@ -496,7 +496,7 @@ def RollOut(Solution, action, OriginalRNAChain, Folder_set, Expert_set, min_dbp,
     seq = ''.join(map(str, OriginalRNAChain))
     
     for fd in Folder_set:
-        if fd.Name == 'RNAfold':
+        if fd.Name.lower() == 'rnafold':
             s = fd.BaseHeuristics_RNAfold(BPchain, action, seq, now_position, now_BP, OriginalRNAChain, min_dbp)
             #check if the chain s is an unfolded chain, if yes, we use fortified_WC from the partial chain
             if s == 'No feasible result from RNAfold':
@@ -505,7 +505,7 @@ def RollOut(Solution, action, OriginalRNAChain, Folder_set, Expert_set, min_dbp,
                 #Solution.ori_WC = 'RNAfold infeasible'
             else:
                 WC_dp = s
-        elif fd.Name == 'CONTRAfold':
+        elif fd.Name.lower() == 'contrafold':
             #first decide if this action is feasible for CONTRAfold
             if CONTRAfold_feasibility_decision(Solution, action, OriginalRNAChain) == True:
                 # Now generate the set of PossibleCombo according to the action and partial chain 
@@ -594,7 +594,10 @@ def GenereateTopActionSet(GlobalPossibleActionSet, SolutionSet, OriginalRNAChain
     for PC in SolutionSet:
         if len(PC.BasePairChain) >0 and len(PC.BasePairChain) < len(OriginalRNAChain):    #to avoid the initial chain being NNN
             now_pos = len(PC.BasePairChain)
-            BP_choice = PC.ori_WC[Expert_set[0].Name][Folder_set[0].Name][0][now_pos]
+            try:
+                BP_choice = PC.ori_WC[Expert_set[0].Name][Folder_set[0].Name][0][now_pos]
+            except:
+                print("Dead branch, moving on...")
             if BP_choice == '(':
                 BP_choice_bp =1
             elif BP_choice == '.':
@@ -672,12 +675,12 @@ def ExpertRNA(OriginalRNAChain, folder_nameset, expert_nameset, min_dbp, scaler,
     SolutionSet = []
 
     InitialSolution = toolbox.Solution(ChainItself=[], BasePairChain=[])
-    print('***InitialPartialChainSolution***', InitialSolution.ChainItself, InitialSolution.BasePairChain)
+    #print('***InitialPartialChainSolution***', InitialSolution.ChainItself, InitialSolution.BasePairChain)
     SolutionSet.append(InitialSolution)
 
     for itera in range(iteration_length):
-        print('**************************Begin Iteration*************************************')
-        #print('**Iteration**', itera)
+        #print('**************************Begin Iteration*************************************')
+        print('**Iteration**', itera)
         #print('**OriginalRNAChain**', OriginalRNAChain)
         SolutionSet = UpdateSolutionSet(itera, SolutionSet, RNAOriginalChain, Folder_set, Expert_set, min_dbp, scaler, clf, scaler_ori, clf_ori)
         #print('***ParitalChainSet:***')
@@ -685,10 +688,10 @@ def ExpertRNA(OriginalRNAChain, folder_nameset, expert_nameset, min_dbp, scaler,
             #print('PartialChain:', 'BP_Chain:', item.BasePairChain, 'DP_Chain', toolbox.BP_to_DP(item.BasePairChain), 'Whole chain:', item.ori_WC)
         #print('**************************END OF ITER*****************************************')
 
-    print('**************************Statistics*****************************************')
-    print('the length of RNAchain:', len(RNAOriginalChain))
+    #print('**************************Statistics*****************************************')
+    #print('the length of RNAchain:', len(RNAOriginalChain))
     Our_dp_str_list = []
-    print('Foldability:')
+    #print('Foldability:')
     for item in SolutionSet:
         #print('Foldability for this chain:', GetRewards_ori(toolbox.BP_to_DP(item.ori_WC), OriginalRNAChain, scaler_ori, clf_ori))
         Our_BP = item.BasePairChain
