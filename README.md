@@ -52,10 +52,9 @@ A csv file containing the following columns:
 
 8. 'ent_3', sequence entropy with window size three, calculation details referred to Congzhe's paper
 9. 'gc_percentage', the percentage of G and C in the input RNA seq.
-10. 'ensemble_diversity', calculation details referred to Congzhe's paper
-11. 'expected_accuracy', calculation details referred to Congzhe's paper
-12. 'fe_per', calculation details referred to Congzhe's paper
-13. 'Running_time(sec)', running time for this RNA in seconds
+10. 'ensemble_diversity', measures the expected distance between the target secondary structure and all the other secondary structure, calculation details referred to Congzhe's paper
+11. 'expected_accuracy', measures the expected number of bases that are in correct base pairing status, calculation details referred to Congzhe's paper
+12. 'Running_time(sec)', running time for this RNA in seconds
 
 
 ****************************
@@ -71,21 +70,18 @@ The csv file from part 1 with the following columns added:
 
 **ENTRNA foldabilities**
 
-14. 'Actual_Foldability_MFE', ENTRNA_MFE scores for the actual structure
-15. 'Actual_Foldability_WOMFE', ENTRNA_NFE scores for the actual structure
-16. 'Actual_abs_Foldability_difference', absolute difference of ENTRNA_MFE and ENTRNA_NFE scores for the actual structure
+13. 'Actual_Foldability_MFE', ENTRNA_MFE scores for the actual structure
+14. 'Actual_Foldability_WOMFE', ENTRNA_NFE scores for the actual structure
 
 **ViennaRNA MFE scores**  
 
-17. 'RNAfold_Foldability_MFE', ENTRNA_MFE scores for the structure by RNAfold
-18. 'RNAfold_Foldability_WOMFE', ENTRNA_NFE scores for the structure by RNAfold
-19. 'RNAfold_abs_Foldability_difference', absolute difference of ENTRNA_MFE and ENTRNA_NFE scores for the structure by RNAfold
-20. 'Our_Foldability_MFE', ENTRNA_MFE scores for the structure by our alg
-21. 'Our_Foldability_WOMFE', ENTRNA_NFE scores for the structure by our alg
-22. 'Our_abs_Foldability_difference', absolute difference of ENTRNA_MFE and ENTRNA_NFE scores for the structure by our alg
-23. 'Actual_FE', free energy (by. ViennaRNA) for the actual structure
-24. 'RNAfold_FE', free energy (by. ViennaRNA) for the structure by RNAfold
-25. 'Our_FE', free energy (by. ViennaRNA) for the structure by our alg
+15. 'RNAfold_Foldability_MFE', ENTRNA_MFE scores for the structure by RNAfold
+16. 'RNAfold_Foldability_WOMFE', ENTRNA_NFE scores for the structure by RNAfold
+17. 'Our_Foldability_MFE', ENTRNA_MFE scores for the structure by our alg
+18. 'Our_Foldability_WOMFE', ENTRNA_NFE scores for the structure by our alg
+19. 'Actual_FE', free energy (by. ViennaRNA) for the actual structure
+20. 'RNAfold_FE', free energy (by. ViennaRNA) for the structure by RNAfold
+21. 'Our_FE', free energy (by. ViennaRNA) for the structure by our alg
 
 
 
