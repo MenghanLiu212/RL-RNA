@@ -26,9 +26,9 @@ This respository contains two parts of work: (1) Running the alg iteself and pro
 **For part 1:**
 
 Running the whole algorithm requires three .py files:  
-1. Batchrun_for_database_xxxxxxx.py  
-2. Main_SeqAttRollOut_RNAfold_xxxxxxx.py
-3. SeqAttRollOut_RNAfold_xxxxxxx.py
+1. ExpertRNA.py  
+2. ExpertRNA_alg.py
+3. ExpertRNA_toolbox.py
 
 1 is the main python file to run. You may want to change the input file's directory and the name of output file within this script.
 
