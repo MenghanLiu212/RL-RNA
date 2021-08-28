@@ -175,8 +175,8 @@ def UpdateBPChain(BPChain, ActionChosen):
     """
     This function updates the BP chain state after we attach a new one, it transfers uncomplete to newly complete: 1 to 1.5, 2 to 2.5
     """
-    #print('--*--UpdateBPChain--*--')
-    # print('test_ori_BP',BPChain)
+    print('--*--UpdateBPChain--*--')
+    print('this_BP',BPChain)
     # NewBPChain = deepcopy(BPChain)
     NewBPChain = BPChain
     if ActionChosen.BasePair == 0:

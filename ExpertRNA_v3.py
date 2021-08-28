@@ -193,14 +193,16 @@ def testing_output(file_name, Ori_Seq, Actual_str, RNAfold_str, Our_alg_str_list
         Put_something_into_csv(list_for_the_case, output_file)
     return
 
-def prod_output(str_name, Ori_Seq, Our_alg_str_list, alg_run_time, output_file):
+def prod_output(str_name, Ori_Seq, Our_alg_str_list, alg_run_time, output_file, Our_alg_str_list_ori):
     print('Runtime:', alg_run_time)
     print('Writing results to file_name:', output_file)
     with open(output_file, 'a') as f:
         f.write('>'+str_name+'\n')
         f.write(Ori_Seq+'\n')
-        for s in Our_alg_str_list:
-            f.write(s+'\n')
+        for s in Our_alg_str_list_ori:
+            f.write(s[0]+'\n')
+            f.write(s[1]+'score: '+str(s[2])+'\n')
+            
 
 #**********************************
 if __name__ == '__main__':
@@ -225,9 +227,9 @@ if __name__ == '__main__':
         output_file = args.output[0]
     else:
         if args.testing:
-            output_file = "ExpertRNA_output_v2_test.csv"
+            output_file = "ExpertRNA_output_v3_test.csv"
         else:
-            output_file = "ExpertRNA_output_v2.dbn"
+            output_file = "ExpertRNA_output_v3.dbn"
 
     #prepare output file
     clear_output(output_file)
@@ -271,13 +273,14 @@ if __name__ == '__main__':
 
             #Fold the structure with ExpertRNA
             alg_start_time = time.time()
-            Our_alg_str_list = Our_alg_Main.ExpertRNA(new_seq, folder_nameset, expert_nameset, min_dbp, scaler, clf, scaler_ori, clf_ori)
+            Our_alg_str_list_ori = Our_alg_Main.ExpertRNA(new_seq, folder_nameset, expert_nameset, min_dbp, scaler, clf, scaler_ori, clf_ori)
+            Our_alg_str_list = [item[0] for item in Our_alg_str_list_ori]
             alg_run_time = time.time() - alg_start_time
 
             if args.testing:
                 testing_output(file_name, Ori_Seq, Actual_str, RNAfold_str, Our_alg_str_list, scaler, clf, scaler_ori, clf_ori, alg_run_time, expert_nameonly)
             else:
-                prod_output(str_name, Ori_Seq, Our_alg_str_list, alg_run_time, output_file)
+                prod_output(str_name, Ori_Seq, Our_alg_str_list, alg_run_time, output_file, Our_alg_str_list_ori)
             
         except Exception as e:
             print(e)
