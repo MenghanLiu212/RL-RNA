@@ -61,7 +61,7 @@ There are two modes of this software: test mode and prediction mode. For both mo
 21. 'Our_FE', free energy (by. ViennaRNA) for the structure by ExpertRNA
 
 
-### Implementation commands
+### Implementation commandline instructions
 
 This software is run by commandline. The options are as follow:
 
