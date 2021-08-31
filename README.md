@@ -17,6 +17,7 @@ We call ENTRNA expert with MFE MFE_ENTRNA and ENTRNA expert without MFE NFE_ENTR
 
 ****************************
 
+### Implementation
 Running the whole algorithm requires three .py files:  
 1. ExpertRNA.py  
 2. ExpertRNA_main.py
@@ -32,9 +33,9 @@ There are two modes of this software: test mode and prediction mode. For both mo
 2. 'Ori_Seq', the sequence of the RNA, notice that if your input RNA use T instead of U, we will automatically. transfer T into U
 3. 'Actual_str', the actual structure of the input RNA, if any.
 4. 'RNAfold_str', the RNAfold result structure of the input RNA.
-5. 'Our_alg_str', the result structure by our alg of the input RNA.
+5. 'Our_alg_str', the result structure by ExpertRNA of the input RNA.
 6. 'RNAfold_distance', the distance percentage btw actual structure and structure by RNAfold
-7. 'Our_distance', the distance percentage btw actual structure and structure by our alg
+7. 'Our_distance', the distance percentage btw actual structure and structure by ExpertRNA
 
 **The remaining columns are ENTRNA evaluations**
 
@@ -53,12 +54,24 @@ There are two modes of this software: test mode and prediction mode. For both mo
 
 15. 'RNAfold_Foldability_MFE', ENTRNA_MFE scores for the structure by RNAfold
 16. 'RNAfold_Foldability_NFE', ENTRNA_NFE scores for the structure by RNAfold
-17. 'Our_Foldability_MFE', ENTRNA_MFE scores for the structure by our alg
-18. 'Our_Foldability_NFE', ENTRNA_NFE scores for the structure by our alg
+17. 'Our_Foldability_MFE', ENTRNA_MFE scores for the structure by ExpertRNA
+18. 'Our_Foldability_NFE', ENTRNA_NFE scores for the structure by ExpertRNA
 19. 'Actual_FE', free energy (by. ViennaRNA) for the actual structure
 20. 'RNAfold_FE', free energy (by. ViennaRNA) for the structure by RNAfold
-21. 'Our_FE', free energy (by. ViennaRNA) for the structure by our alg
+21. 'Our_FE', free energy (by. ViennaRNA) for the structure by ExpertRNA
 
 
+### Implementation commands
 
+This software is run by commandline. The options are as follow:
 
+1. 'input_data': The path to a directory containing input sequences. Each sequence should be a separate fasta file.
+2. '-e': The Expert used to evaluate partial solutions, and branches to maintain for each expert. Expert should choose from 'ENTRNA_MFE', 'ENTRNA_NFE'. Should in the form of [expert name branch num]. And input should be call the -fd multiple times for each input.
+3. '-f': The folder to complete partial solutions. Should choose from 'RNAfold' in this version. Type should be nonspecific. Should in the form of [folder name type]. And input should be call the -fd multiple times for each input.
+4. '-o': Name of file to write results out to in .csv format.
+5. '-m': The minimum basepair distance, default is 4.
+6. '-t': If set the algorithm expects a true structure for each input on the line following the sequence and produces a comparison between the prediction and the real score.
+
+Example:
+For input data in DatasetPath with expert as 'ENTRNA_MFE' and folder as 'RNAfold', with minimum basepair distance as 4, in test mode:
+Type in: $ python ExpertRNA_v3.py DatasetPath -e 'ENTRNA_MFE' 4 -f 'RNAfold' 'nonspecific' -m 4 -t
