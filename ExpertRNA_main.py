@@ -628,10 +628,24 @@ def GenereateTopActionSet(GlobalPossibleActionSet, SolutionSet, OriginalRNAChain
     #print('temp_GlobalPossibleActionSet after modification:', temp_GlobalPossibleActionSet)
 
     TopActionSet_temp = []
+    len_ori = len(temp_GlobalPossibleActionSet)
     if len(temp_GlobalPossibleActionSet) < br_num_total:
         #TopActionSet_temp = temp_GlobalPossibleActionSet
-        for item in temp_GlobalPossibleActionSet:
-            TopActionSet_temp.append([item, 'not important', 'not important'])
+        #for item in temp_GlobalPossibleActionSet:
+        #    TopActionSet_temp.append([item, 'not important', 'not important'])
+            
+        UpdatedExpert_set = random.sample(Expert_set, len(Expert_set))
+        total_c = 1
+        for ept in UpdatedExpert_set:
+            n = int(ept.Branch_num)
+            for itera in range(0,n):
+                while total_c <= n and total_c <= len_ori:
+                    best_res = SelectBestAction(temp_GlobalPossibleActionSet, ept, Folder_set)
+                    BestForRewards_top_temp = best_res[0]
+                    best_score = best_res[1]
+                    temp_GlobalPossibleActionSet.remove(BestForRewards_top_temp)
+                    TopActionSet_temp.append([BestForRewards_top_temp, ept.Name, best_score])
+                    total_c += 1
     else:
         UpdatedExpert_set = random.sample(Expert_set, len(Expert_set))
         for ept in UpdatedExpert_set:
@@ -649,6 +663,7 @@ def SelectBestAction(PossibleActionSet, ept, Folder_set):
     """
     In this fuction we choose the action with best reward.
     """
+    #print('PossibleActionSet:', PossibleActionSet)
     temp = PossibleActionSet[0]
     for item in PossibleActionSet:
         reward = max([item.rewards[ept.Name][fd.Name][1] for fd in Folder_set])
@@ -729,7 +744,7 @@ def Train_ENTRNA_ori():
 
 #test running of the alg
 """
-OriginalRNAChain_old= 'UAGGUUUGGCGGUCAUAGCGAUGGGGUUACACCUGGUCUCGUUUCGAUCCCAGAAGUUAAGUCUUUUCGCGUUUUGUUUGUGUACUAUGGGUUCCGGUCUAUGGGAAUUUCAUUUAGCUGCCAGCUUUUU'
+OriginalRNAChain_old= 'CGGGGCGUAGCUCAGCCUGGCAGAGCGUCUGGUUUGGGACCAGAAGGUCGCACGUUCGAAUCGUGUCGCCCCGA'
 OriginalRNAChain1 = [i for i in OriginalRNAChain_old]
 folder_nameset= [['RNAfold', 'nonspecific']]
 expert_nameset= [['ENTRNA_NFE', 4]]

@@ -175,8 +175,8 @@ def UpdateBPChain(BPChain, ActionChosen):
     """
     This function updates the BP chain state after we attach a new one, it transfers uncomplete to newly complete: 1 to 1.5, 2 to 2.5
     """
-    print('--*--UpdateBPChain--*--')
-    print('this_BP',BPChain)
+    #print('--*--UpdateBPChain--*--')
+    #print('this_BP',BPChain)
     # NewBPChain = deepcopy(BPChain)
     NewBPChain = BPChain
     if ActionChosen.BasePair == 0:
@@ -195,6 +195,7 @@ def UpdateBPChain(BPChain, ActionChosen):
         NewBPChain[PositionOfAttachedNucleotide] = 2.5
         NewBPChain[PositionOfLastOpenInPartialChain] = 1.5
     # print('testNewBPChainUpdated:',NewBPChain)
+    #print('NewBPChain:', NewBPChain)
     return NewBPChain
 
 
@@ -281,7 +282,7 @@ def GetPossibleActions(Solution, RNAOriginalChain, min_dbp):
     if PositionOfLastOpenInPartialChain == 'non':
         pass
     else:
-        if CheckIfNucleotidesCanBePaired(PositionOfLastOpenInPartialChain, p, RNAOriginalChain) ==1:
+        if CheckIfNucleotidesCanBePaired(PositionOfLastOpenInPartialChain, p, RNAOriginalChain, min_dbp) ==1:
             BasePairChoiceList.append(2)
     #Can we attach open?
     if p + min_dbp + 1 <= len(RNAOriginalChain):
@@ -297,7 +298,7 @@ def GetPossibleActions(Solution, RNAOriginalChain, min_dbp):
 
 
 
-def CheckIfNucleotidesCanBePaired(PositionOfOpenIndex, PositionOfCloseIndex, NucleotideChain):
+def CheckIfNucleotidesCanBePaired(PositionOfOpenIndex, PositionOfCloseIndex, NucleotideChain, min_dbp):
     #print('open:', PositionOfOpenIndex, 'close:', PositionOfCloseIndex)
     PositionOfOpen = NucleotideChain[PositionOfOpenIndex]
     #print('PositionOfOpen is:',PositionOfOpen)
@@ -318,6 +319,8 @@ def CheckIfNucleotidesCanBePaired(PositionOfOpenIndex, PositionOfCloseIndex, Nuc
     elif PositionOfOpen == 'C' and PositionOfClose == 'G':
         check = 1
     else:
+        check = 0
+    if PositionOfCloseIndex - PositionOfOpenIndex < min_dbp:
         check = 0
     return check
 
