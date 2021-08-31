@@ -16,20 +16,15 @@ We call ENTRNA expert with MFE MFE_ENTRNA and ENTRNA expert without MFE NFE_ENTR
 
 
 ****************************
-**For part 1:**
 
 Running the whole algorithm requires three .py files:  
 1. ExpertRNA.py  
 2. ExpertRNA_main.py
 3. ExpertRNA_toolbox.py
 
-1 is the main python file to run. You may want to change the input file's directory and the name of output file within this script.
+1 is the main python file to run. You may want to change the input file's directory and the name of output file within this script. 
 
-Input format:   
-Example input format is as 5s_Acholeplasma-laidlawii-2_.ct file.
-
-Output format:  
-A csv file containing the following columns:
+There are two modes of this software: test mode and prediction mode. For both mode, the input format can be both .fasta and .dbn files. The output of prediction mode will be a .dbn file with predcited strucutres in dot-bracket format and corresponding expert scores for each branch. And the output of test mode is a csv containing the following columns: 
 
 **Predictions**
 
@@ -47,31 +42,19 @@ A csv file containing the following columns:
 9. 'gc_percentage', the percentage of G and C in the input RNA seq.
 10. 'ensemble_diversity', measures the expected distance between the target secondary structure and all the other secondary structure, calculation details referred to Congzhe's paper
 11. 'expected_accuracy', measures the expected number of bases that are in correct base pairing status, calculation details referred to Congzhe's paper
-12. 'Running_time(sec)', running time for this RNA in seconds
-
-
-****************************
-**For part 2:**
-
-Exporting expert scores and free energy scores of the output file from part 1. This part is optional, you can make use of it if you want to know the scores of experts and free energies of the structures.
-
-Input format:  
-Just the csv file output from part 1.
-
-Output format:  
-The csv file from part 1 with the following columns added:  
+12. 'Running_time(sec)', running time for this RNA in seconds 
 
 **ENTRNA foldabilities**
 
 13. 'Actual_Foldability_MFE', ENTRNA_MFE scores for the actual structure
-14. 'Actual_Foldability_WOMFE', ENTRNA_NFE scores for the actual structure
+14. 'Actual_Foldability_NFE', ENTRNA_NFE scores for the actual structure
 
 **ViennaRNA MFE scores**  
 
 15. 'RNAfold_Foldability_MFE', ENTRNA_MFE scores for the structure by RNAfold
-16. 'RNAfold_Foldability_WOMFE', ENTRNA_NFE scores for the structure by RNAfold
+16. 'RNAfold_Foldability_NFE', ENTRNA_NFE scores for the structure by RNAfold
 17. 'Our_Foldability_MFE', ENTRNA_MFE scores for the structure by our alg
-18. 'Our_Foldability_WOMFE', ENTRNA_NFE scores for the structure by our alg
+18. 'Our_Foldability_NFE', ENTRNA_NFE scores for the structure by our alg
 19. 'Actual_FE', free energy (by. ViennaRNA) for the actual structure
 20. 'RNAfold_FE', free energy (by. ViennaRNA) for the structure by RNAfold
 21. 'Our_FE', free energy (by. ViennaRNA) for the structure by our alg
