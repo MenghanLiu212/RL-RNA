@@ -211,7 +211,7 @@ if __name__ == '__main__':
     parser.add_argument('-e', '--expert_set', metavar='expert_set', nargs=2, action='append', help="The Expert used to evaluate partial solutions, and branches to maintain for each expert. Expert should choose from 'ENTRNA_MFE', 'ENTRNA_NFE'. Should in the form of [expert name, branch num] And input should be call the -fd multiple times for each input.")
     parser.add_argument('-f', '--folder_set', metavar='folder_set', nargs=2, action='append', help="The folder to complete partial solutions. Should choose from 'RNAfold' or 'CONTRAfold'. Type should choose from nonspecific or specific. Should in the form of [folder name, type]. And input should be call the -fd multiple times for each input.")
     parser.add_argument('-o', '--output', metavar='output_file', type=str, nargs=1, help='name of file to write results out to in .csv format')
-    parser.add_argument('-m', '--min_basepair_distance', metavar='min_bp_dist', type=int, default=3, help='The minimum basepair distance')
+    parser.add_argument('-m', '--min_basepair_distance', metavar='min_bp_dist', type=int, default=4, help='The minimum basepair distance')
     parser.add_argument('-t', '--testing', metavar='testing', action='store_const', const=True, default=False, help='If set the algorithm expects a true structure for each input on the line following the sequence and produces a comparison between the prediction and the real score.')
     args = parser.parse_args()
     
