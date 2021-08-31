@@ -14,20 +14,13 @@ We did some modifications on the original version of ENTRNA so the new version o
 
 We call ENTRNA expert with MFE MFE_ENTRNA and ENTRNA expert without MFE NFE_ENTRNA.
 
-### Algorithms in this repository
-There are three versions of this algorithom included in this repository: MFE only, NFE only and MFENFE_2X2.
-MFE only is a 4 branch algorithm using only ENTRNA with MFE calculation as an expert.
-NFE only is a 4 branch algorithm using only ENTRNA with NFE calculation as an expert.
-MFENFE_2X2 is a 2 by 2 branches algorithm using ENTRNA with MFE and NFE as experts.
-
-This respository contains two parts of work: (1) Running the alg iteself and produce an output file. (2) Exporting expert scores and free energy scores of the output file.
 
 ****************************
 **For part 1:**
 
 Running the whole algorithm requires three .py files:  
 1. ExpertRNA.py  
-2. ExpertRNA_alg.py
+2. ExpertRNA_main.py
 3. ExpertRNA_toolbox.py
 
 1 is the main python file to run. You may want to change the input file's directory and the name of output file within this script.
