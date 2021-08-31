@@ -693,6 +693,11 @@ def ExpertRNA(OriginalRNAChain, folder_nameset, expert_nameset, min_dbp, scaler,
         Folder_set.append(Folder(Name=item[0], BPInputType=item[1]))
     for item in expert_nameset:
         Expert_set.append(Expert(Name=item[0], Branch_num=item[1]))
+        
+    bran_num_total = 0
+    for ept in Expert_set:
+        bran_num_total += int(ept.Branch_num)
+    print('bran_num_total:', bran_num_total)
     
     RNAOriginalChain = OriginalRNAChain
     iteration_length = len(RNAOriginalChain)
@@ -727,6 +732,11 @@ def ExpertRNA(OriginalRNAChain, folder_nameset, expert_nameset, min_dbp, scaler,
         Our_ept = item[1]
         Our_score = item[2]
         Our_dp_str_list.append([Our_dp_str, Our_ept, Our_score])
+    #append 'NONE' for empty space
+    if len(Our_dp_str_list) < bran_num_total:
+        temp = bran_num_total - len(Our_dp_str_list)
+        for i in range(0, temp):
+            Our_dp_str_list.append(['NONE', 'NONE', 'NONE'])
     #print('Our_dp_str_list:', Our_dp_str_list)
     print('*******************************************************************')
     print('*******************************************************************')
@@ -744,7 +754,7 @@ def Train_ENTRNA_ori():
 
 #test running of the alg
 """
-OriginalRNAChain_old= 'CGGGGCGUAGCUCAGCCUGGCAGAGCGUCUGGUUUGGGACCAGAAGGUCGCACGUUCGAAUCGUGUCGCCCCGA'
+OriginalRNAChain_old= 'UGGGCAAUGUCCGACCUCCAAAUUGUGUCAGGACCGGAAGGUAGCAGCACUAAGGUUGCUUGGGCAUGUGCCUUUUUUUGAGAAUUUAA'
 OriginalRNAChain1 = [i for i in OriginalRNAChain_old]
 folder_nameset= [['RNAfold', 'nonspecific']]
 expert_nameset= [['ENTRNA_NFE', 4]]

@@ -100,24 +100,16 @@ def testing_header(output_file, expert_nameonly):
         'Expected_accuracy', 
         'FE_per', 
         'Running_time(sec)',
-        #'Actual_foldability_MFE',
-        #'Actual_foldability_NFE',
-        #'RNAfold_foldability_MFE',
-        #'RNAfold_foldability_NFE',
-        #'ExpertRNA_foldability_MFE',
-        #'ExpertRNA_foldability_NFE',
+        'Actual_foldability_MFE',
+        'Actual_foldability_NFE',
+        'RNAfold_foldability_MFE',
+        'RNAfold_foldability_NFE',
+        'ExpertRNA_foldability_MFE',
+        'ExpertRNA_foldability_NFE',
         'Actual_FE',
         'RNAfold_FE',
         'ExpertRNA_FE'
     ]
-    if 'ENTRNA_MFE' in expert_nameonly:
-        header.append('Actual_foldability_MFE')
-        header.append('RNAfold_foldability_MFE')
-        header.append('ExpertRNA_foldability_MFE')
-    if 'ENTRNA_NFE' in expert_nameonly:
-        header.append('Actual_foldability_NFE')
-        header.append('RNAfold_foldability_NFE')
-        header.append('ExpertRNA_foldability_NFE')
     
     Put_something_into_csv(header, output_file)
 
@@ -170,24 +162,16 @@ def testing_output(file_name, Ori_Seq, Actual_str, RNAfold_str, Our_alg_str_list
                 features_ori['expected_accuracy'],
                 features_ori['fe_per'],
                 alg_run_time,
-                #Actual_foldability_MFE,
-                #Actual_foldability_NFE,
-                #RNAfold_foldability_MFE,
-                #RNAfold_foldability_NFE,
-                #Expert_foldability_MFE,
-                #Expert_foldability_NFE,
+                Actual_foldability_MFE,
+                Actual_foldability_NFE,
+                RNAfold_foldability_MFE,
+                RNAfold_foldability_NFE,
+                Expert_foldability_MFE,
+                Expert_foldability_NFE,
                 Actual_FE,
                 RNAfold_FE,
                 Expert_FE
             ]
-            if 'ENTRNA_MFE' in expert_nameonly:
-                list_for_the_case.append(Actual_foldability_MFE)
-                list_for_the_case.append(RNAfold_foldability_MFE)
-                list_for_the_case.append(Expert_foldability_MFE)
-            if 'ENTRNA_NFE' in expert_nameonly:
-                list_for_the_case.append(Actual_foldability_NFE)
-                list_for_the_case.append(RNAfold_foldability_NFE)
-                list_for_the_case.append(Expert_foldability_NFE)
         else:
             list_for_the_case = 'NONE,NONE'
         Put_something_into_csv(list_for_the_case, output_file)
@@ -274,7 +258,9 @@ if __name__ == '__main__':
             #Fold the structure with ExpertRNA
             alg_start_time = time.time()
             Our_alg_str_list_ori = Our_alg_Main.ExpertRNA(new_seq, folder_nameset, expert_nameset, min_dbp, scaler, clf, scaler_ori, clf_ori)
+            #print('Our_alg_str_list_ori:', Our_alg_str_list_ori)
             Our_alg_str_list = [item[0] for item in Our_alg_str_list_ori]
+            #print('Our_alg_str_list:', Our_alg_str_list)
             alg_run_time = time.time() - alg_start_time
 
             if args.testing:
