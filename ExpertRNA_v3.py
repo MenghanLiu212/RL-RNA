@@ -173,7 +173,7 @@ def testing_output(file_name, Ori_Seq, Actual_str, RNAfold_str, Our_alg_str_list
                 Expert_FE
             ]
         else:
-            list_for_the_case = 'NONE,NONE'
+            list_for_the_case = ['NONE','NONE']
         Put_something_into_csv(list_for_the_case, output_file)
     return
 
