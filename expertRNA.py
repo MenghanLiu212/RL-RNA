@@ -239,7 +239,7 @@ def prod_output(str_name, Ori_Seq, Our_alg_str_list, alg_run_time, output_file, 
         f.write(Ori_Seq+'\n')
         for s in Our_alg_str_list_ori:
             f.write(s[0]+'\n')
-            f.write(s[1]+'score: '+str(s[2])+'\n')
+            f.write(s[1]+' score: '+str(s[2])+'\n')
             
 
 #**********************************
@@ -265,9 +265,9 @@ if __name__ == '__main__':
         output_file = args.output[0]
     else:
         if args.testing:
-            output_file = "ExpertRNA_output_v3_test.csv"
+            output_file = "ExpertRNA_output.csv"
         else:
-            output_file = "ExpertRNA_output_v3.dbn"
+            output_file = "ExpertRNA_output.dbn"
 
     #prepare output file
     clear_output(output_file)
