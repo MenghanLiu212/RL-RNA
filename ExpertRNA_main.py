@@ -182,7 +182,7 @@ class Folder():
                 for item in removal_list:
                     WC_set.remove(item)
             if WC_set == []:
-                print('Empty WC_set! No feasible result from RNAfold for this partial chain and action!')
+                #print('Empty WC_set! No feasible result from RNAfold for this partial chain and action!')
                 best_WC = 'No feasible result from RNAfold'
             else:
                 best_WC = min(WC_set, key= lambda x: x[1])[0]
@@ -219,7 +219,7 @@ class Folder():
             return fc_set
 
         #function begin
-        print('--*--BaseHeuristics_RNAfold--*--')
+        #print('--*--BaseHeuristics_RNAfold--*--')
         if min_dbp == 4:
             #start restricting for min_dbp =4
             s = GetWholeStrChain_withConstrainedRNAfold(seq, BPchain, action)
@@ -318,28 +318,28 @@ class Expert():
 #---------------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------------
 def UpdateSolutionSet(itera, SolutionSet, RNAOriginalChain, Folder_set, Expert_set, min_dbp, scaler, clf, scaler_ori, clf_ori):
-    print('--*--UpdateSolutionSet--*--')
+    #print('--*--UpdateSolutionSet--*--')
     GlobalPossibleActionSet = []
     for pc in SolutionSet:
         LocalPossibleActionSet = GenerateLocalPossibleActionSet(pc, RNAOriginalChain, min_dbp)
         #update rewards for each local action set
         LocalPossibleActionSet = UpdateRewardsForAction(LocalPossibleActionSet, RNAOriginalChain, Folder_set, Expert_set, min_dbp, scaler, clf, scaler_ori, clf_ori)
         pc = UpdateFortifiedSolutionForEachSolution(pc, LocalPossibleActionSet, Folder_set, Expert_set)
-        print('*LocalPossibleActionSet:*')
+        #print('*LocalPossibleActionSet:*')
         for lpa in LocalPossibleActionSet:
-            print('Action:', 'Nucleotide:', lpa.Nucleotide, 'BasePair:', lpa.BasePair, 'PositionOfNucleotide:',lpa.PositionOfNucleotide, 'Reward', lpa.rewards, 'PartialChain_parent_BP_Chain', lpa.PartialChain_parent.BasePairChain)
+            #print('Action:', 'Nucleotide:', lpa.Nucleotide, 'BasePair:', lpa.BasePair, 'PositionOfNucleotide:',lpa.PositionOfNucleotide, 'Reward', lpa.rewards, 'PartialChain_parent_BP_Chain', lpa.PartialChain_parent.BasePairChain)
             GlobalPossibleActionSet.append(lpa)
-    print('*GlobalPossibleActionSet:*')
-    for gpa in GlobalPossibleActionSet:
-        print('Action:', 'Nucleotide:', gpa.Nucleotide, 'BasePair:', gpa.BasePair, 'PositionOfNucleotide:',
-              gpa.PositionOfNucleotide, 'Reward', gpa.rewards, 'PartialChain_parent_BP_Chain', gpa.PartialChain_parent.BasePairChain)
+    #print('*GlobalPossibleActionSet:*')
+    #for gpa in GlobalPossibleActionSet:
+        #print('Action:', 'Nucleotide:', gpa.Nucleotide, 'BasePair:', gpa.BasePair, 'PositionOfNucleotide:',
+        #      gpa.PositionOfNucleotide, 'Reward', gpa.rewards, 'PartialChain_parent_BP_Chain', gpa.PartialChain_parent.BasePairChain)
 
     TopActionSet = GenereateTopActionSet(GlobalPossibleActionSet, SolutionSet, RNAOriginalChain, Folder_set, Expert_set, scaler, clf, scaler_ori, clf_ori)
-    print('*TopActionSet*')
+    #print('*TopActionSet*')
     for ta_full in TopActionSet:
         ta=ta_full[0]
-        print('Action:', 'Nucleotide:', ta.Nucleotide, 'BasePair:', ta.BasePair,
-        'rewards', ta.rewards, 'PartialChain_parent_BP_Chain', ta.PartialChain_parent.BasePairChain)
+        #print('Action:', 'Nucleotide:', ta.Nucleotide, 'BasePair:', ta.BasePair,
+        #   'rewards', ta.rewards, 'PartialChain_parent_BP_Chain', ta.PartialChain_parent.BasePairChain)
 
     new_SolutionSet = []
     for item in TopActionSet:
@@ -386,22 +386,22 @@ def GenerateLocalPossibleActionSet(Solution, RNAOriginalChain, min_dbp):
     So we get a LocalPossibleActionSet, which is an attribute of the ParitalChain.
     Also, we append all the actions in LocalPossibleActionSet to GlobalPossibleActionSet.
     """
-    print('--*--GenerateLocalPossibleActionSet--*--')
+    #print('--*--GenerateLocalPossibleActionSet--*--')
     LocalPossibleActionSet = toolbox.GetPossibleActions(Solution, RNAOriginalChain, min_dbp)
     return LocalPossibleActionSet
 
 
 def UpdateRewardsForAction(PossibleActionSet, OriginalRNAChain, Folder_set, Expert_set, min_dbp, scaler, clf, scaler_ori, clf_ori):
-    print('--*--UpdateRewardsForAction--*--')
+    #print('--*--UpdateRewardsForAction--*--')
     PossibleActionSet_new=[]
     for action in PossibleActionSet:
         Solution = action.PartialChain_parent
         action = RollOut(Solution, action, OriginalRNAChain, Folder_set, Expert_set, min_dbp, scaler, clf, scaler_ori, clf_ori)
         if action.ori_WC == 'RNAfold infeasible':
-            print('***** RNAfold infeasible, cut! *****')
+            #print('***** RNAfold infeasible, cut! *****')
             PossibleActionSet.remove(action)
         elif action.ori_WC == 'CONTRAfold infeasible':
-            print('***** CONTRAfold infeasible, cut! *****')
+            #print('***** CONTRAfold infeasible, cut! *****')
             PossibleActionSet.remove(action)
         else:
             #calculate rewards for each expert for each WC from each folder, for each action
@@ -489,7 +489,7 @@ def RollOut(Solution, action, OriginalRNAChain, Folder_set, Expert_set, min_dbp,
         return rewards
 
     #Rollout function begin
-    print('--*--Rollout:--*--')
+    #print('--*--Rollout:--*--')
     SolutionSim = deepcopy(Solution)
     updated_action = deepcopy(action)
     now_position = action.PositionOfNucleotide
@@ -505,7 +505,7 @@ def RollOut(Solution, action, OriginalRNAChain, Folder_set, Expert_set, min_dbp,
             #check if the chain s is an unfolded chain, if yes, we use fortified_WC from the partial chain
             if s == 'No feasible result from RNAfold':
                 WC_dp = 'RNAfold infeasible'
-                print('******RNAfold infeasible*****')
+                #print('******RNAfold infeasible*****')
                 #Solution.ori_WC = 'RNAfold infeasible'
             else:
                 WC_dp = s
@@ -697,26 +697,26 @@ def ExpertRNA(OriginalRNAChain, folder_nameset, expert_nameset, min_dbp, scaler,
     bran_num_total = 0
     for ept in Expert_set:
         bran_num_total += int(ept.Branch_num)
-    print('bran_num_total:', bran_num_total)
+    #print('bran_num_total:', bran_num_total)
     
     RNAOriginalChain = OriginalRNAChain
     iteration_length = len(RNAOriginalChain)
     SolutionSet = []
 
     InitialSolution = toolbox.Solution(ChainItself=[], BasePairChain=[])
-    print('***InitialPartialChainSolution***', InitialSolution.ChainItself, InitialSolution.BasePairChain)
+    #print('***InitialPartialChainSolution***', InitialSolution.ChainItself, InitialSolution.BasePairChain)
     SolutionSet.append(InitialSolution)
 
     for itera in range(iteration_length):
-        print('**************************Begin Iteration*************************************')
+        #print('**************************Begin Iteration*************************************')
         print('**Iteration**', itera)
-        print('**OriginalRNAChain**', OriginalRNAChain)
+        #print('**OriginalRNAChain**', OriginalRNAChain)
         SolutionSet_with_ept_into = UpdateSolutionSet(itera, SolutionSet, RNAOriginalChain, Folder_set, Expert_set, min_dbp, scaler, clf, scaler_ori, clf_ori)
         SolutionSet = [item[0] for item in SolutionSet_with_ept_into]
-        print('***ParitalChainSet:***')
-        for item in SolutionSet:
-            print('PartialChain:', 'BP_Chain:', item.BasePairChain, 'DP_Chain', toolbox.BP_to_DP(item.BasePairChain), 'Whole chain:', item.ori_WC)
-    print('**************************END OF ITER*****************************************')
+        #print('***ParitalChainSet:***')
+        #for item in SolutionSet:
+            #print('PartialChain:', 'BP_Chain:', item.BasePairChain, 'DP_Chain', toolbox.BP_to_DP(item.BasePairChain), 'Whole chain:', item.ori_WC)
+    #print('**************************END OF ITER*****************************************')
 
     #print('**************************Statistics*****************************************')
     #print('the length of RNAchain:', len(RNAOriginalChain))
