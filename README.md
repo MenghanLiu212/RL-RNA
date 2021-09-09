@@ -7,8 +7,14 @@ The current implementation uses RNAfold as the roll-out heuristic algorithm.
 ENTRNA (with and without MFE) is used as expert.
 
 ### Environment
-This requires the environment requirement listed in this repo:  
-ENTRNA: https://github.com/sucongzhe/ENTRNA
+The Anaconda environment used to test and run ExpertRNA can be found in the expertRNA_environment.txt file in this repository.  Please note that the ViennaRNA package (including RNAfold) must be compiled from source on Python versions >= 3.8.  We use 3.7 for testing as ViennaRNA can be directly installed from Bioconda for that version.
+
+<ins> Environment summary </ins>
+Python 3.7  
+numpy
+scikit-learn
+pandas
+viennarna
 
 We did some modifications on the original version of ENTRNA so the new version of ENTRNA is already inside the `util` folder. You don't need to download ENTRNA itself from the link above but you need the environments for ENTRNA from the link above. (There is a doc containing ENTRNA environment setting in the main folder)
 
