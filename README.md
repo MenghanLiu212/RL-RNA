@@ -71,13 +71,15 @@ There are two modes of this software: test mode and prediction mode. For both mo
 
 This software is run by commandline. The options are as follow:
 
-1. 'input_data': The path to a directory containing input sequences. Each sequence should be a separate fasta file.
-2. '-e': The Expert used to evaluate partial solutions, and branches to maintain for each expert. Expert should choose from 'ENTRNA_MFE', 'ENTRNA_NFE'. Should in the form of [expert name branch num]. And input should be call the -fd multiple times for each input.
-3. '-f': The folder to complete partial solutions. Should choose from 'RNAfold' in this version. Type should be nonspecific. Should in the form of [folder name type]. And input should be call the -fd multiple times for each input.
-4. '-o': Name of file to write results out to in .csv format.
-5. '-m': The minimum basepair distance, default is 4.
-6. '-t': If set the algorithm expects a true structure for each input on the line following the sequence and produces a comparison between the prediction and the real score.
+1. `input_data`: The path to a directory containing input sequences. Each sequence should be a separate fasta file.
+2. `-e`: The Expert used to evaluate partial solutions, and branches to maintain for each expert. Expert should choose from 'ENTRNA_MFE', 'ENTRNA_NFE'. Should in the form of [expert name branch num]. And input should be call the -fd multiple times for each input.
+3. `-f`: The folder to complete partial solutions. Should choose from 'RNAfold' in this version. Type should be nonspecific. Should in the form of [folder name type]. And input should be call the -fd multiple times for each input.
+4. `-o`: Name of file to write results out to in .csv format.
+5. `-m`: The minimum basepair distance, default is 4.
+6. `-t`: If set the algorithm expects a true structure for each input on the line following the sequence and produces a comparison between the prediction and the real score.
 
 Example:
-For input data in DatasetPath with expert as 'ENTRNA_MFE' and folder as 'RNAfold', with minimum basepair distance as 4, in test mode:
-Type in: $ python ExpertRNA_v3.py DatasetPath -e 'ENTRNA_MFE' 4 -f 'RNAfold' 'nonspecific' -m 4 -t
+For input data in DatasetPath with expert as 'ENTRNA_MFE' and folder as 'RNAfold', with minimum basepair distance as 4, in test mode the command line invocation is:
+```bash
+python ExpertRNA_v3.py DatasetPath -e ENTRNA_MFE 4 -f RNAfold nonspecific -m 4 -t
+```
