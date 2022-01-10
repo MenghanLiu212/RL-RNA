@@ -20,6 +20,8 @@ We did some modifications on the original version of ENTRNA so the new version o
 
 We call ENTRNA expert with MFE MFE_ENTRNA and ENTRNA expert without MFE NFE_ENTRNA.
 
+The training dataset in our algorithm is the testing dataset of the expert ENTRNA and it is the RNASTRAND dataset called 'RNASTRAND_pseudoknot_free_feature.csv' in the folder 'util', and the testing data is rfam and Mathews dataset in the folder 'testing_data'.
+
 
 ****************************
 
