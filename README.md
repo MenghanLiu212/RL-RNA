@@ -24,6 +24,7 @@ Training dataset:
  - ENTRNA: 1595 data; using RNASTRAND database: RL-RNA/util/RNASTRAND_pseudoknot_free_feature.csv
     
 Testing dataset:
+> Each dataset was culled to remove structures with greater than 80% sequence identity withstructures in the ENTRNA training dataset using CD-HIT-EST-2D (Huang et al. 2010).
  - ExpertRNA: 
     - Mathews data: 1559 data; RL-RNA/testing_data/mathews (the folder contains xxx.dbn files are the sequences and structures considered)
     - rfam data: 147 data; RL-RNA/testing_data/rfam (the folder contains xxx.dbn files are the sequences and structures considered)
