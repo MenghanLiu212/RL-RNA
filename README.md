@@ -24,8 +24,8 @@ Training dataset:
     ENTRNA: 1595 data; using RNASTRAND database: RL-RNA/util/RNASTRAND_pseudoknot_free_feature.csv
 Testing dataset:
     ExpertRNA: 
-        Mathews data: 1559 data; RL-RNA/testing_data/mathews
-        rfam data: 147 data; RL-RNA/testing_data/rfam
+        Mathews data: 1559 data; RL-RNA/testing_data/mathews (the folder contains xxx.dbn files are the sequences and structures considered)
+        rfam data: 147 data; RL-RNA/testing_data/rfam (the folder contains xxx.dbn files are the sequences and structures considered)
 
 
 ****************************
