@@ -29,6 +29,8 @@ Testing dataset:
     - Mathews data: 1559 data; RL-RNA/testing_data/mathews (the folder contains xxx.dbn files are the sequences and structures considered)
     - rfam data: 147 data; RL-RNA/testing_data/rfam (the folder contains xxx.dbn files are the sequences and structures considered)
 
+## References
+Huang, Y., Niu, B., Gao, Y., Fu, L., & Li, W. (2010). CD-HIT Suite: a web server for clustering and comparing biological sequences. Bioinformatics, 26(5), 680-682.
 
 ****************************
 
