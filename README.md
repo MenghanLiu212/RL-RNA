@@ -92,5 +92,5 @@ This software is run via commandline. The options are as follow:
 Example:
 For input data in DatasetPath with expert as 'ENTRNA_MFE' and folder as 'RNAfold', with minimum basepair distance as 4, in test mode, the command line invocation is:
 ```bash
-python ExpertRNA_v3.py DatasetPath -e ENTRNA_MFE 4 -f RNAfold nonspecific -m 4 -t
+python expertRNA.py DatasetPath -e ENTRNA_MFE 4 -f RNAfold nonspecific -m 4 -t
 ```
