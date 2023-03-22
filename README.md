@@ -31,6 +31,7 @@ Testing dataset:
 
 ## References
 Huang, Y., Niu, B., Gao, Y., Fu, L., & Li, W. (2010). CD-HIT Suite: a web server for clustering and comparing biological sequences. Bioinformatics, 26(5), 680-682.
+Liu, M., Poppleton, E., Pedrielli, G., Šulc, P., & Bertsekas, D. P. (2022). Expertrna: A new framework for rna secondary structure prediction. INFORMS Journal on Computing, 34(5), 2464-2484.
 
 ****************************
 
